@@ -6,4 +6,4 @@ Projeto da Disciplina de Engenharia de Softaware II do curso de ADS da Fatec Sor
 4. Cliente(Empresa), Contador(Administrador) e Sistema IA
 5. Principais Dores
 6. Tecnologias
-7. Antonio Victor Mello Mielitz Lopes RA: 0030482511008 | Pedro Henrique Dias da Silva RA: 0030482511042 | Giovanni Tomaceli RA: 0030482511037
+7. Antonio Victor Mello Mielitz Lopes RA: 0030482511008 | Pedro Henrique Dias da Silva RA: 0030482511042 | Giovanni Tomacelli RA: 0030482511037
