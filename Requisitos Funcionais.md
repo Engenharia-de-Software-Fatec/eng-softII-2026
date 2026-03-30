@@ -1,20 +1,28 @@
-## 📋 Requisitos Funcionais
+| ID   | Descrição                                                             |
+| ---- | --------------------------------------------------------------------- |
+| RF01 | Permitir ao contador autenticar-se com CRM ou e-mail e senha          |
+| RF02 | Permitir recuperação de senha                                         |
+| RF03 | Permitir acesso ao painel do contador após login                      |
+| RF04 | Permitir selecionar e enviar documentos                               |
+| RF05 | Permitir escolher o tipo de documento (extrato, comprovante, NF, XML) |
+| RF06 | Permitir upload de arquivos por arrastar e soltar                     |
+| RF07 | Validar formatos de arquivo (PDF, JPG, PNG, XML)                      |
+| RF08 | Validar tamanho máximo de arquivo (10MB)                              |
+| RF09 | Exibir lista de arquivos selecionados                                 |
+| RF10 | Permitir envio de arquivos para processamento por IA                  |
+| RF11 | Extrair automaticamente dados dos documentos                          |
+| RF12 | Exibir nível de confiança da extração de dados                        |
+| RF13 | Sugerir lançamento contábil automaticamente                           |
+| RF14 | Permitir edição dos dados extraídos                                   |
+| RF15 | Permitir aprovação de lançamento                                      |
+| RF16 | Permitir rejeição de lançamento                                       |
+| RF17 | Permitir visualização do documento digitalizado                       |
+| RF18 | Permitir seleção de cliente                                           |
+| RF19 | Permitir busca de cliente por nome ou CNPJ                            |
+| RF20 | Permitir filtrar clientes (todas, pendentes, em dia)                  |
+| RF21 | Exibir status do cliente (pendências ou em dia)                       |
+| RF22 | Exibir sugestões inteligentes baseadas em histórico                   |
+| RF23 | Permitir navegação entre telas do sistema                             |
+| RF24 | Exibir notificações ao usuário                                        |
 
-| ID   | Descrição                                                       |
-|------|------------------------------------------------------------------|
-| RF01 | Permitir ao usuário cadastrar e autenticar sua conta            |
-| RF02 | Permitir ao usuário selecionar criptomoedas para monitoramento  |
-| RF03 | Exibir a lista de criptomoedas selecionadas                     |
-| RF04 | Coletar e atualizar preços em tempo real ou quase real          |
-| RF05 | Permitir definir critérios de variação de preço                 |
-| RF06 | Enviar notificações de variações significativas                 |
-| RF07 | Permitir ativar/desativar notificações                          |
-| RF08 | Exibir histórico de preços                                      |
-| RF09 | Identificar e exibir eventos relevantes                         |
-| RF10 | Notificar sobre eventos relevantes                              |
-| RF11 | Analisar dados históricos para prever eventos                   |
-| RF12 | Alertar quando probabilidade de eventos for alta                |
-| RF13 | Permitir visualizar previsões e probabilidades                  |
-| RF14 | Permitir remover criptomoedas da lista                          |
-| RF15 | Manter histórico de alertas enviados                            |
-| RF16 | Permitir configurar preferências de notificação                 |
+
