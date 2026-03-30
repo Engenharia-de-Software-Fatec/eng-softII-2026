@@ -1,5 +1,7 @@
 # 📊 Contabilidade Ágil
 
+[![PlantUML](https://github.com/Engenharia-de-Software-Fatec/eng-softII-2026/actions/workflows/plantuml.yml/badge.svg)](https://github.com/Engenharia-de-Software-Fatec/eng-softII-2026/actions)
+
 Projeto desenvolvido para a disciplina de **Engenharia de Software II** do curso de **Análise e Desenvolvimento de Sistemas (ADS)** da Fatec Sorocaba.
 
 ---
