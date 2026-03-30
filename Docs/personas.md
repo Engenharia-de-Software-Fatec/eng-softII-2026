@@ -1,6 +1,10 @@
 **PERSONAS DO PROJETO**
 
-👤 Persona: Rogério Silva
+## Navegação
+- [👤 Rogério Silva](#persona-1-rogério-silva)
+- [👤 Helena Souza](#persona-2-helena-souza)
+
+## Persona 1: Rogério Silva
 
 Idade: 39 anos
 Profissão: Contador
@@ -40,7 +44,7 @@ Ferramentas que reduzam erros humanos
 
 ---------------------------------------------------------------------
 
-👤 Persona: Helena Souza
+## Persona 2: Helena Souza
 
 Idade: 32 anos
 Profissão: Gestora Financeira
