@@ -2,7 +2,7 @@
 left to right direction
 skinparam packageStyle rectangle
 
-actor Contador
+actor Conntador
 actor Cliente
 
 rectangle "Sistema Contabilidade Ágil" {
@@ -30,7 +30,7 @@ rectangle "Sistema Contabilidade Ágil" {
   }
 }
 
-Contador --> UI
+Conntador --> UI
 Cliente --> UI
 
 UI --> Auth
@@ -47,6 +47,6 @@ Proc --> DB
 Clientes --> DB
 Lancamentos --> DB
 
-Notif --> Contador
+Notif --> Conntador
 
 @enduml
