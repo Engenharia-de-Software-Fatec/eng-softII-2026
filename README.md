@@ -69,10 +69,18 @@ O projeto pode envolver tecnologias como:
   👉 [clique aqui](https://github.com/MGS-BR/eng-softII-2026/blob/main/Docs/Requisitos%20n%C3%A3o%20funcionais.md)
 
 * 📑 Casos de Uso:
-  👉 [Alto nível](https://github.com/MGS-BR/eng-softII-2026/blob/main/Docs/caso%20de%20uso.png), [Baixo nível](https://github.com/MGS-BR/eng-softII-2026/blob/main/Docs/Casos%20de%20uso.md)
+  👉 [Alto nível](https://github.com/MGS-BR/eng-softII-2026/blob/main/Docs%2Farquitetura.png), [Baixo nível](https://github.com/MGS-BR/eng-softII-2026/blob/main/Docs/Casos%20de%20uso.md)
 
 * 👤 Personas:
   👉 [clique aqui](https://github.com/MGS-BR/eng-softII-2026/blob/main/Docs/personas.md)
+
+---
+
+## 📑 Diagrama
+
+![Diagrama](https://github.com/MGS-BR/eng-softII-2026/blob/main/Docs%2Farquitetura.png)
+
+Código fonte: [docs/arquitetura.puml](https://github.com/MGS-BR/eng-softII-2026/blob/main/Docs%2Farquitetura.puml)
 
 ---
 
