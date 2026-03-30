@@ -32,4 +32,8 @@ jobs:
           git config --global user.email "github-actions@github.com"
           git add .
           git commit -m "Auto-generate PlantUML diagrams" || echo "No changes"
+
+          git pull --rebase origin main
+
           git push
+  
