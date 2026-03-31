@@ -24,11 +24,9 @@ Contador --> Lançamentos
 IA --> Lançamentos
 
 ManageDocs --> Review
-ManageDocs --> Aprove
-ManageDocs --> toCorrect
+Review --> Aprove
+Review --> toCorrect
 
 Review <-- Lançamentos
-Aprove <-- Lançamentos
-toCorrect <-- Lançamentos
 
 @enduml
