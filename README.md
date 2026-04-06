@@ -1,6 +1,9 @@
 # 📊 Contabilidade Ágil
 
 [![PlantUML](https://github.com/Engenharia-de-Software-Fatec/eng-softII-2026/actions/workflows/plantuml.yml/badge.svg)](https://github.com/Engenharia-de-Software-Fatec/eng-softII-2026/actions)
+[![Issues Abertas](https://img.shields.io/github/issues/Engenharia-de-Software-Fatec/eng-softII-2026)](https://github.com/Engenharia-de-Software-Fatec/eng-softII-2026/issues)
+[![Issues Fechadas](https://img.shields.io/github/issues-closed/Engenharia-de-Software-Fatec/eng-softII-2026)](https://github.com/Engenharia-de-Software-Fatec/eng-softII-2026/issues?q=is%3Aissue%20state%3Aclosed)
+[![Pull Requests](https://img.shields.io/github/issues-pr/Engenharia-de-Software-Fatec/eng-softII-2026)](https://github.com/Engenharia-de-Software-Fatec/eng-softII-2026/pulls)
 
 Projeto desenvolvido para a disciplina de **Engenharia de Software II** do curso de **Análise e Desenvolvimento de Sistemas (ADS)** da Fatec Sorocaba.
 
