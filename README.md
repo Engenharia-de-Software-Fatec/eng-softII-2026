@@ -9,7 +9,7 @@ Projeto desenvolvido para a disciplina de **Engenharia de Software II** do curso
 
 ---
 
-## 🚀 Sobre o Projeto
+## 📌 Sobre o Projeto
 
 O **Contabilidade Ágil** é uma aplicação com dashboard que automatiza lançamentos contábeis por meio de Inteligência Artificial.
 
