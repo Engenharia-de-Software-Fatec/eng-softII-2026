@@ -68,13 +68,13 @@ Desenvolver uma aplicação inteligente que aumente a produtividade de escritór
 
 ## 📂 Documentação
 
-* 📌 [Requisitos Funcionais](https://github.com/Engenharia-de-Software-Fatec/eng-softII-2026/blob/main/Docs/Requisitos/requisitos.md#-requisitos-funcionais)
+* 📌 [Requisitos Funcionais](https://github.com/Engenharia-de-Software-Fatec/eng-softII-2026/blob/main/docs/requisitos/requisitos.md#-requisitos-funcionais)
 
-* 📌 [Requisitos Não Funcionais](https://github.com/Engenharia-de-Software-Fatec/eng-softII-2026/blob/main/Docs/Requisitos/requisitos.md#%EF%B8%8F-requisitos-n%C3%A3o-funcionais)
+* 📌 [Requisitos Não Funcionais](https://github.com/Engenharia-de-Software-Fatec/eng-softII-2026/blob/main/docs/requisitos/requisitos.md#%EF%B8%8F-requisitos-n%C3%A3o-funcionais)
 
-* 📑 Casos de Uso: [Alto nível](https://github.com/Engenharia-de-Software-Fatec/eng-softII-2026/blob/main/Docs/arquitetura.png), [Baixo nível](https://github.com/Engenharia-de-Software-Fatec/eng-softII-2026/blob/main/Docs/Casos%20de%20uso.md)
+* 📑 Casos de Uso: [Alto nível](https://github.com/Engenharia-de-Software-Fatec/eng-softII-2026/blob/main/docs/diagramas/caso-de-uso.png), [Baixo nível](https://github.com/Engenharia-de-Software-Fatec/eng-softII-2026/blob/main/docs/requisitos/casos-de-uso.md)
 
-* 👤 [Personas](https://github.com/Engenharia-de-Software-Fatec/eng-softII-2026/blob/main/Docs/personas.md)
+* 👤 [Personas](https://github.com/Engenharia-de-Software-Fatec/eng-softII-2026/blob/main/docs/produto/personas.md)
 
 * 💻 [Protótipo](https://www.figma.com/make/163bSFTuPebNT12CHOxyEr/Sem-t%C3%ADtulo?t=FMy2XBaNSTi2Eu0Y-1)
 
@@ -82,9 +82,9 @@ Desenvolver uma aplicação inteligente que aumente a produtividade de escritór
 
 ## 📑 Diagrama
 
-![Diagrama](https://github.com/Engenharia-de-Software-Fatec/eng-softII-2026/blob/main/Docs/Diagramas/caso-de-uso.png)
+![Diagrama](https://github.com/Engenharia-de-Software-Fatec/eng-softII-2026/blob/main/docs/diagramas/caso-de-uso.png)
 
-Código fonte: [docs/arquitetura.puml](https://github.com/Engenharia-de-Software-Fatec/eng-softII-2026/blob/main/Docs/Diagramas/caso-de-uso.puml)
+Código fonte: [docs/arquitetura.puml](https://github.com/Engenharia-de-Software-Fatec/eng-softII-2026/blob/main/docs/diagramas/caso-de-uso.puml)
 
 ---
 
