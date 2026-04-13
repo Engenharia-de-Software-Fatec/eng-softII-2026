@@ -42,7 +42,7 @@ Centralização de documentos dos clientes
 Dashboard simples e intuitivo
 Ferramentas que reduzam erros humanos
 
-![Persona 1](https://github.com/Engenharia-de-Software-Fatec/eng-softII-2026/blob/main/Docs/Persona1.jpg)
+![Persona 1](https://github.com/Engenharia-de-Software-Fatec/eng-softII-2026/blob/main/docs/produto/persona1.jpg)
 
 ---------------------------------------------------------------------
 
@@ -84,4 +84,4 @@ Dashboard com indicadores claros (lucro, custos, fluxo de caixa)
 Integração com sistemas contábeis
 Acesso rápido a dados confiáveis
 
-![Persona 2](https://github.com/Engenharia-de-Software-Fatec/eng-softII-2026/blob/main/Docs/Persona2.jpg)
+![Persona 2](https://github.com/Engenharia-de-Software-Fatec/eng-softII-2026/blob/main/docs/produto/persona2.jpg)
