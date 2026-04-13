@@ -61,12 +61,12 @@ Desenvolver uma aplicação inteligente que aumente a produtividade de escritór
 
 O projeto pode envolver tecnologias como:
 
-* Frontend: (React, Angular, etc.)
-* Backend: (Node.js, Java, etc.)
-* Banco de Dados: (PostgreSQL, MySQL, etc.)
+* Frontend: (React)
+* Backend: (Javascript)
+* Banco de Dados: (OracleSQL)
 * Inteligência Artificial
 
-*(A definir conforme evolução do projeto)*
+
 
 ---
 
@@ -79,6 +79,8 @@ O projeto pode envolver tecnologias como:
 * 📑 Casos de Uso: [Alto nível](https://github.com/Engenharia-de-Software-Fatec/eng-softII-2026/blob/main/Docs/arquitetura.png), [Baixo nível](https://github.com/Engenharia-de-Software-Fatec/eng-softII-2026/blob/main/Docs/Casos%20de%20uso.md)
 
 * 👤 [Personas](https://github.com/Engenharia-de-Software-Fatec/eng-softII-2026/blob/main/Docs/personas.md)
+
+* 💻 .[Protótipo](https://www.figma.com/make/163bSFTuPebNT12CHOxyEr/Sem-t%C3%ADtulo?t=FMy2XBaNSTi2Eu0Y-1)
 
 ---
 
