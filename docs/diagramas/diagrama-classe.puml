@@ -1,0 +1,70 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+' ======= USUÁRIOS =======
+class Usuario {
+  -id: int
+  -nome: string
+  -email: string
+  -senha: string
+}
+
+class Cliente {
+}
+
+class Contador {
+  -registroCRC: string
+}
+
+Usuario <|-- Cliente
+Usuario <|-- Contador
+
+' ======= DOCUMENTOS =======
+class Documento {
+  -id: int
+  -nomeArquivo: string
+  -dataUpload: Date
+  -status: string
+}
+
+Cliente "1" -- "0..*" Documento : envia >
+
+' ======= IA =======
+class ProcessadorIA {
+  +processar(documento: Documento): List<Lancamento>
+}
+
+Documento --> ProcessadorIA : é processado por >
+
+' ======= LANÇAMENTOS =======
+class Lancamento {
+  -id: int
+  -descricao: string
+  -valor: double
+  -data: Date
+  -status: string
+}
+
+Documento "1" -- "0..*" Lancamento : gera >
+
+' ======= CONTAS CONTÁBEIS =======
+class ContaContabil {
+  -id: int
+  -nome: string
+  -tipo: string
+}
+
+Lancamento --> ContaContabil : utiliza >
+
+' ======= APROVAÇÃO =======
+class Aprovacao {
+  -id: int
+  -status: string
+  -dataAprovacao: Date
+  -observacao: string
+}
+
+Contador "1" -- "0..*" Aprovacao : realiza >
+Lancamento "1" -- "1" Aprovacao : possui >
+
+@enduml
