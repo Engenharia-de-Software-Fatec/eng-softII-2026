@@ -97,6 +97,10 @@ Desenvolver uma aplicação inteligente que aumente a produtividade de escritór
 
 Código fonte: [docs/arquitetura.puml](https://github.com/Engenharia-de-Software-Fatec/eng-softII-2026/blob/main/docs/diagramas/caso-de-uso.puml)
 
+## 🏷 Diagrama de Classe
+
+![Diagrama](https://github.com/Engenharia-de-Software-Fatec/eng-softII-2026/blob/main/docs/diagramas/diagrama-de-classe.png)
+
 ---
 
 ## 🧩 Metodologia
