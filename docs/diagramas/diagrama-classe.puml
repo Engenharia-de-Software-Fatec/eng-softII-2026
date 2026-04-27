@@ -5,9 +5,7 @@ skinparam classAttributeIconSize 0
 skinparam style strictuml
 skinparam monochrome false
 
-' =========================
 ' CLASSES PRINCIPAIS
-' =========================
 
 abstract class Usuario {
   - id: UUID
@@ -42,9 +40,7 @@ Usuario <|-- Cliente
 Usuario <|-- Contador
 Usuario <|-- Administrador
 
-' =========================
 ' DOCUMENTOS
-' =========================
 
 class Documento {
   - id: UUID
@@ -65,9 +61,7 @@ enum StatusDocumento {
 
 Cliente "1" -- "0..*" Documento : envia >
 
-' =========================
 ' IA / PROCESSAMENTO
-' =========================
 
 class MotorIA {
   + extrairDados()
@@ -85,9 +79,7 @@ class AnaliseDocumento {
 Documento "1" -- "1" AnaliseDocumento
 MotorIA ..> AnaliseDocumento
 
-' =========================
 ' LANÇAMENTOS CONTÁBEIS
-' =========================
 
 class LancamentoContabil {
   - id: UUID
@@ -117,9 +109,7 @@ LancamentoContabil "*" --> "1" ContaContabil : crédito
 
 Contador "1" -- "0..*" LancamentoContabil : revisa >
 
-' =========================
 ' FEEDBACK / APRENDIZADO
-' =========================
 
 class CorrecaoIA {
   - id: UUID
@@ -130,9 +120,7 @@ class CorrecaoIA {
 LancamentoContabil "1" -- "0..1" CorrecaoIA
 Contador "1" -- "0..*" CorrecaoIA : registra >
 
-' =========================
 ' RELATÓRIOS
-' =========================
 
 class Relatorio {
   - id: UUID
