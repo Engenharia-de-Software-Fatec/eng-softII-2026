@@ -1,70 +1,148 @@
 @startuml
-skinparam classAttributeIconSize 0
+title Diagrama de Classes - Contabilidade Ágil
 
-' ======= USUÁRIOS =======
-class Usuario {
-  -id: int
-  -nome: string
-  -email: string
-  -senha: string
+skinparam classAttributeIconSize 0
+skinparam style strictuml
+skinparam monochrome false
+
+' =========================
+' CLASSES PRINCIPAIS
+' =========================
+
+abstract class Usuario {
+  - id: UUID
+  - nome: String
+  - email: String
+  - senhaHash: String
+  - ativo: Boolean
+  + login()
+  + logout()
 }
 
 class Cliente {
+  - empresa: String
+  - cnpj: String
+  + enviarDocumento()
+  + acompanharStatus()
 }
 
 class Contador {
-  -registroCRC: string
+  - crc: String
+  + aprovarLancamento()
+  + corrigirLancamento()
+  + gerarRelatorio()
+}
+
+class Administrador {
+  + gerenciarUsuarios()
+  + configurarSistema()
 }
 
 Usuario <|-- Cliente
 Usuario <|-- Contador
+Usuario <|-- Administrador
 
-' ======= DOCUMENTOS =======
+' =========================
+' DOCUMENTOS
+' =========================
+
 class Documento {
-  -id: int
-  -nomeArquivo: string
-  -dataUpload: Date
-  -status: string
+  - id: UUID
+  - nomeArquivo: String
+  - tipo: String
+  - dataUpload: DateTime
+  - status: StatusDocumento
+  + validarArquivo()
+  + armazenar()
+}
+
+enum StatusDocumento {
+  PENDENTE
+  PROCESSANDO
+  ANALISADO
+  REJEITADO
 }
 
 Cliente "1" -- "0..*" Documento : envia >
 
-' ======= IA =======
-class ProcessadorIA {
-  +processar(documento: Documento): List<Lancamento>
+' =========================
+' IA / PROCESSAMENTO
+' =========================
+
+class MotorIA {
+  + extrairDados()
+  + classificarDocumento()
+  + sugerirLancamentos()
 }
 
-Documento --> ProcessadorIA : é processado por >
-
-' ======= LANÇAMENTOS =======
-class Lancamento {
-  -id: int
-  -descricao: string
-  -valor: double
-  -data: Date
-  -status: string
+class AnaliseDocumento {
+  - id: UUID
+  - confianca: Decimal
+  - dataAnalise: DateTime
+  + processar()
 }
 
-Documento "1" -- "0..*" Lancamento : gera >
+Documento "1" -- "1" AnaliseDocumento
+MotorIA ..> AnaliseDocumento
 
-' ======= CONTAS CONTÁBEIS =======
+' =========================
+' LANÇAMENTOS CONTÁBEIS
+' =========================
+
+class LancamentoContabil {
+  - id: UUID
+  - dataLancamento: Date
+  - descricao: String
+  - valor: Decimal
+  - status: StatusLancamento
+  + validar()
+}
+
+enum StatusLancamento {
+  PENDENTE_APROVACAO
+  APROVADO
+  CORRIGIDO
+  REJEITADO
+}
+
 class ContaContabil {
-  -id: int
-  -nome: string
-  -tipo: string
+  - codigo: String
+  - nome: String
+  - tipo: String
 }
 
-Lancamento --> ContaContabil : utiliza >
+AnaliseDocumento "1" -- "1..*" LancamentoContabil : gera >
+LancamentoContabil "*" --> "1" ContaContabil : débito
+LancamentoContabil "*" --> "1" ContaContabil : crédito
 
-' ======= APROVAÇÃO =======
-class Aprovacao {
-  -id: int
-  -status: string
-  -dataAprovacao: Date
-  -observacao: string
+Contador "1" -- "0..*" LancamentoContabil : revisa >
+
+' =========================
+' FEEDBACK / APRENDIZADO
+' =========================
+
+class CorrecaoIA {
+  - id: UUID
+  - observacao: String
+  - dataCorrecao: DateTime
 }
 
-Contador "1" -- "0..*" Aprovacao : realiza >
-Lancamento "1" -- "1" Aprovacao : possui >
+LancamentoContabil "1" -- "0..1" CorrecaoIA
+Contador "1" -- "0..*" CorrecaoIA : registra >
+
+' =========================
+' RELATÓRIOS
+' =========================
+
+class Relatorio {
+  - id: UUID
+  - tipo: String
+  - dataGeracao: DateTime
+  + exportarPDF()
+  + exportarExcel()
+}
+
+Contador "1" -- "0..*" Relatorio
+Administrador "1" -- "0..*" Relatorio
 
 @enduml
