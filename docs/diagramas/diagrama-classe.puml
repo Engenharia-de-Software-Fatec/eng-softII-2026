@@ -1,12 +1,12 @@
 @startuml
-title Diagrama de Classes - Contabilidade Ágil
+title Diagrama de Classes - Contabilidade Ágil (Versão Final)
 
 skinparam classAttributeIconSize 0
 skinparam style strictuml
-skinparam monochrome false
 
-' CLASSES PRINCIPAIS
-
+' ========================
+' USUÁRIOS
+' ========================
 abstract class Usuario {
   - id: UUID
   - nome: String
@@ -40,8 +40,9 @@ Usuario <|-- Cliente
 Usuario <|-- Contador
 Usuario <|-- Administrador
 
+' ========================
 ' DOCUMENTOS
-
+' ========================
 class Documento {
   - id: UUID
   - nomeArquivo: String
@@ -61,9 +62,11 @@ enum StatusDocumento {
 
 Cliente "1" -- "0..*" Documento : envia >
 
+' ========================
 ' IA / PROCESSAMENTO
-
+' ========================
 class MotorIA {
+  + processarDocumento()
   + extrairDados()
   + classificarDocumento()
   + sugerirLancamentos()
@@ -73,19 +76,26 @@ class AnaliseDocumento {
   - id: UUID
   - confianca: Decimal
   - dataAnalise: DateTime
+  - status: StatusAnalise
   + processar()
 }
 
-Documento "1" -- "1" AnaliseDocumento
-MotorIA ..> AnaliseDocumento
+enum StatusAnalise {
+  SUCESSO
+  ERRO
+  BAIXA_CONFIANCA
+}
 
+Documento "1" *-- "1" AnaliseDocumento
+MotorIA "1" --> "0..*" AnaliseDocumento : gera >
+
+' ========================
 ' LANÇAMENTOS CONTÁBEIS
-
+' ========================
 class LancamentoContabil {
   - id: UUID
   - dataLancamento: Date
   - descricao: String
-  - valor: Decimal
   - status: StatusLancamento
   + validar()
 }
@@ -97,20 +107,37 @@ enum StatusLancamento {
   REJEITADO
 }
 
+class ItemLancamento {
+  - id: UUID
+  - valor: Decimal
+  - tipo: TipoMovimento
+}
+
+enum TipoMovimento {
+  DEBITO
+  CREDITO
+}
+
 class ContaContabil {
   - codigo: String
   - nome: String
   - tipo: String
 }
 
+' Relações contábeis corretas
 AnaliseDocumento "1" -- "1..*" LancamentoContabil : gera >
-LancamentoContabil "*" --> "1" ContaContabil : débito
-LancamentoContabil "*" --> "1" ContaContabil : crédito
+LancamentoContabil "1" *-- "2..*" ItemLancamento
+ItemLancamento "*" --> "1" ContaContabil
 
+' Rastreabilidade (IMPORTANTE)
+LancamentoContabil "*" --> "1" Documento
+
+' Revisão do contador
 Contador "1" -- "0..*" LancamentoContabil : revisa >
 
+' ========================
 ' FEEDBACK / APRENDIZADO
-
+' ========================
 class CorrecaoIA {
   - id: UUID
   - observacao: String
@@ -118,10 +145,14 @@ class CorrecaoIA {
 }
 
 LancamentoContabil "1" -- "0..1" CorrecaoIA
+CorrecaoIA "*" --> "1" LancamentoContabil : altera >
+CorrecaoIA "*" --> "1" AnaliseDocumento : melhora >
+
 Contador "1" -- "0..*" CorrecaoIA : registra >
 
+' ========================
 ' RELATÓRIOS
-
+' ========================
 class Relatorio {
   - id: UUID
   - tipo: String
@@ -130,6 +161,7 @@ class Relatorio {
   + exportarExcel()
 }
 
+Relatorio "1" --> "0..*" LancamentoContabil
 Contador "1" -- "0..*" Relatorio
 Administrador "1" -- "0..*" Relatorio
 
