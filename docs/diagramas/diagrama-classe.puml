@@ -1,5 +1,5 @@
 @startuml
-title Diagrama de Classes - Contabilidade Ágil (Versão Final)
+title Diagrama de Classes
 
 skinparam classAttributeIconSize 0
 skinparam style strictuml
