@@ -1,6 +1,5 @@
 @startuml
 left to right direction
-skinparam packageStyle rectangle
 
 actor Cliente
 actor Contador
@@ -8,25 +7,18 @@ actor IA
 
 rectangle "Sistema Contabilidade Ágil" {
 
-  (Enviar arquivos) as Upload
-  (Gerenciar clientes) as Clientes
-  (Gerenciar documentos) as ManageDocs
-  (Realizar lançamentos contábeis) as Lançamentos
-  (Revisar lançamentos) as Review
-  (Aprovar lançamentos) as Aprove
-  (Corrigir lançamentos) as toCorrect
+  Cliente -- (Enviar Arquivos)
+
+  Contador --> (Gerenciar clientes)
+  Contador -- (Gerenciar documentos)
+  Contador --> (Revisar lançamentos)
+
+  IA --> (Realizar lançamentos contábeis)
+
+  (Revisar lançamentos) .> (Aprovar lançamentos) : <<extend>>
+  (Revisar lançamentos) .> (Corrigir lançamentos) : <<extend>>
+
+  (Realizar lançamentos contábeis) .> (Revisar lançamentos) : <<include>>
 }
-
-Cliente --> Upload
-Contador --> Upload
-Contador --> Clientes
-Contador --> ManageDocs
-Contador --> Lançamentos
-Contador --> Review
-IA --> Lançamentos
-
-Review --> Aprove
-Review --> toCorrect
-Review --> Lançamentos
 
 @enduml
