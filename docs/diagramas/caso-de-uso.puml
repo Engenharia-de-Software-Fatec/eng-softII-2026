@@ -7,28 +7,20 @@ actor IA
 
 rectangle "Sistema Contabilidade Ágil" {
 
-  (Enviar arquivos) as upload
-  (Gerenciar documentos) as documents
-  (Gerenciar clientes) as clients
-  (Realizar lançamentos contábeis) as cont
-  (Revisar lançamentos) as review
-  (Aprovar lançamentos) as approve
-  (Corrigir lançamentos) as rectify
+  Cliente --> (Enviar arquivos)
 
-  Cliente --> upload
+  Contador --> (Enviar arquivos)
+  Contador --> (Revisar lançamentos contábeis)
+  Contador --> (Revisar lançamentos)
+  Contador -- (Gerenciar clientes)
+  Contador -- (Gerenciar documentos)
 
-  Contador --> upload
-  Contador --> cont
-  Contador --> review
-  Contador -- clients
-  Contador -- documents
+  IA --> (Realizar lançamentos contábeis)
 
-  IA --> cont
+  (Revisar lançamentos) .> (Aprovar lançamentos) : <<extend>>
+  (Revisar lançamentos) .> (Corrigir lançamentos) : <<extend>>
 
-  review .> approve : <<extend>>
-  review .> rectify : <<extend>>
-
-  cont .> review : <<include>>
+  (Realizar lançamentos contábeis) .> (Revisar lançamentos) : <<include>>
 }
 
 @enduml
