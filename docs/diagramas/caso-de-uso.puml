@@ -11,22 +11,22 @@ rectangle "Sistema Contabilidade Ágil" {
   (Enviar arquivos) as Upload
   (Gerenciar clientes) as Clientes
   (Gerenciar documentos) as ManageDocs
+  (Realizar lançamentos contábeis) as Lançamentos
   (Revisar lançamentos) as Review
   (Aprovar lançamentos) as Aprove
   (Corrigir lançamentos) as toCorrect
-  (Realizar lançamentos contábeis) as Lançamentos
 }
 
 Cliente --> Upload
+Contador --> Upload
 Contador --> Clientes
 Contador --> ManageDocs
 Contador --> Lançamentos
+Contador --> Review
 IA --> Lançamentos
 
-ManageDocs --> Review
 Review --> Aprove
 Review --> toCorrect
-
-Review <-- Lançamentos
+Review --> Lançamentos
 
 @enduml
