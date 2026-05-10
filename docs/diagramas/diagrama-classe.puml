@@ -14,7 +14,7 @@ abstract class Usuario {
   - senhaHash: String
   - ativo: Boolean
   + login()
-  + logout()
+  
 }
 
 class Cliente {
