@@ -50,10 +50,19 @@ Cliente "*" --> "1" Empresa : representa >
 class Documento {
   - id: UUID
   - titulo: String
-  - categoria: String
+  - categoria: CategoriaDocumento
   - dataUpload: DateTime
   - status: StatusDocumento
   - criadoEm: DateTime
+}
+
+enum CategoriaDocumento {
+  NOTA_FISCAL
+  RECIBO
+  EXTRATO_BANCARIO
+  BOLETO
+  FOLHA_PAGAMENTO
+  OUTRO
 }
 
 enum StatusDocumento {
@@ -71,8 +80,8 @@ class Arquivo {
   - urlStorage: String
 }
 
-Empresa "1" -- "0..*" Documento
-Cliente "1" -- "0..*" Documento : envia >
+Empresa "1" *-- "0..*" Documento
+Usuario "1" --> "0..*" Documento : realizaUpload >
 Documento "1" *-- "1" Arquivo
 
 ' ========================
@@ -158,7 +167,7 @@ LancamentoContabil "*" --> "1" Documento
 Contador "1" -- "0..*" LancamentoContabil : revisa >
 
 ' ========================
-' FEEDBACK / APRENDIZADO
+' REVISÃO CONTÁBIL
 ' ========================
 class RevisaoContabil {
   - id: UUID
