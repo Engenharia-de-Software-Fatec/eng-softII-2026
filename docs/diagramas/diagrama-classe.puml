@@ -13,27 +13,23 @@ abstract class Usuario {
   - email: String
   - senhaHash: String
   - ativo: Boolean
-  + login()
+  
   
 }
 
 class Cliente {
   - empresa: String
   - cnpj: String
-  + enviarDocumento()
-  + acompanharStatus()
+  
 }
 
 class Contador {
   - crc: String
-  + aprovarLancamento()
-  + corrigirLancamento()
-  + gerarRelatorio()
+ 
 }
 
 class Administrador {
-  + gerenciarUsuarios()
-  + configurarSistema()
+  
 }
 
 Usuario <|-- Cliente
@@ -49,8 +45,7 @@ class Documento {
   - tipo: String
   - dataUpload: DateTime
   - status: StatusDocumento
-  + validarArquivo()
-  + armazenar()
+
 }
 
 enum StatusDocumento {
@@ -66,10 +61,7 @@ Cliente "1" -- "0..*" Documento : envia >
 ' IA / PROCESSAMENTO
 ' ========================
 class MotorIA {
-  + processarDocumento()
-  + extrairDados()
-  + classificarDocumento()
-  + sugerirLancamentos()
+
 }
 
 class AnaliseDocumento {
@@ -77,7 +69,7 @@ class AnaliseDocumento {
   - confianca: Decimal
   - dataAnalise: DateTime
   - status: StatusAnalise
-  + processar()
+  
 }
 
 enum StatusAnalise {
@@ -97,7 +89,7 @@ class LancamentoContabil {
   - dataLancamento: Date
   - descricao: String
   - status: StatusLancamento
-  + validar()
+
 }
 
 enum StatusLancamento {
@@ -157,8 +149,7 @@ class Relatorio {
   - id: UUID
   - tipo: String
   - dataGeracao: DateTime
-  + exportarPDF()
-  + exportarExcel()
+  
 }
 
 Relatorio "1" --> "0..*" LancamentoContabil
