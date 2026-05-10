@@ -58,11 +58,10 @@ class Documento {
 
 enum CategoriaDocumento {
   NOTA_FISCAL
-  RECIBO
+  COMPROVANTE
   EXTRATO_BANCARIO
-  BOLETO
-  FOLHA_PAGAMENTO
-  OUTRO
+  XML NF-e
+  
 }
 
 enum StatusDocumento {
