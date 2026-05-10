@@ -60,8 +60,7 @@ enum CategoriaDocumento {
   NOTA_FISCAL
   COMPROVANTE
   EXTRATO_BANCARIO
-  XML NF-e
-  
+  XML_NFE
 }
 
 enum StatusDocumento {
@@ -109,8 +108,8 @@ enum StatusAnalise {
   BAIXA_CONFIANCA
 }
 
-Documento "1" --> "0..*" AnaliseDocumento
-MotorIA "1" --> "0..*" AnaliseDocumento : gera >
+Documento "1" --> "0..*" AnaliseDocumento : processa >
+MotorIA "1" --> "0..*" AnaliseDocumento : realiza >
 AnaliseDocumento "*" --> "1" ModeloIA
 
 ' ========================
@@ -156,14 +155,17 @@ enum TipoConta {
   PATRIMONIO
 }
 
+' IA gera lançamentos automaticamente
 AnaliseDocumento "1" --> "1..*" LancamentoContabil : gera >
+
 LancamentoContabil "1" *-- "2..*" ItemLancamento
 ItemLancamento "*" --> "1" ContaContabil
 
 Empresa "1" -- "0..*" LancamentoContabil
 LancamentoContabil "*" --> "1" Documento
 
-Contador "1" -- "0..*" LancamentoContabil : revisa >
+' Apenas contador valida os lançamentos
+Contador "1" -- "0..*" LancamentoContabil : valida >
 
 ' ========================
 ' REVISÃO CONTÁBIL
