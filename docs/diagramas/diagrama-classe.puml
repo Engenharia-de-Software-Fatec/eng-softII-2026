@@ -1,5 +1,5 @@
 @startuml
-title Diagrama de Classes
+title Diagrama de Classes - Contabilidade Ágil
 
 skinparam classAttributeIconSize 0
 skinparam style strictuml
@@ -13,23 +13,18 @@ abstract class Usuario {
   - email: String
   - senhaHash: String
   - ativo: Boolean
-  
-  
+  - criadoEm: DateTime
+  - atualizadoEm: DateTime
 }
 
 class Cliente {
-  - empresa: String
-  - cnpj: String
-  
 }
 
 class Contador {
   - crc: String
- 
 }
 
 class Administrador {
-  
 }
 
 Usuario <|-- Cliente
@@ -37,15 +32,28 @@ Usuario <|-- Contador
 Usuario <|-- Administrador
 
 ' ========================
+' EMPRESA
+' ========================
+class Empresa {
+  - id: UUID
+  - razaoSocial: String
+  - nomeFantasia: String
+  - cnpj: String
+  - criadoEm: DateTime
+}
+
+Cliente "*" --> "1" Empresa : representa >
+
+' ========================
 ' DOCUMENTOS
 ' ========================
 class Documento {
   - id: UUID
-  - nomeArquivo: String
-  - tipo: String
+  - titulo: String
+  - categoria: String
   - dataUpload: DateTime
   - status: StatusDocumento
-
+  - criadoEm: DateTime
 }
 
 enum StatusDocumento {
@@ -55,13 +63,29 @@ enum StatusDocumento {
   REJEITADO
 }
 
+class Arquivo {
+  - id: UUID
+  - nomeOriginal: String
+  - mimeType: String
+  - tamanhoBytes: Long
+  - urlStorage: String
+}
+
+Empresa "1" -- "0..*" Documento
 Cliente "1" -- "0..*" Documento : envia >
+Documento "1" *-- "1" Arquivo
 
 ' ========================
 ' IA / PROCESSAMENTO
 ' ========================
 class MotorIA {
+}
 
+class ModeloIA {
+  - id: UUID
+  - nome: String
+  - versao: String
+  - provider: String
 }
 
 class AnaliseDocumento {
@@ -69,7 +93,6 @@ class AnaliseDocumento {
   - confianca: Decimal
   - dataAnalise: DateTime
   - status: StatusAnalise
-  
 }
 
 enum StatusAnalise {
@@ -78,8 +101,9 @@ enum StatusAnalise {
   BAIXA_CONFIANCA
 }
 
-Documento "1" *-- "1" AnaliseDocumento
+Documento "1" --> "0..*" AnaliseDocumento
 MotorIA "1" --> "0..*" AnaliseDocumento : gera >
+AnaliseDocumento "*" --> "1" ModeloIA
 
 ' ========================
 ' LANÇAMENTOS CONTÁBEIS
@@ -89,7 +113,7 @@ class LancamentoContabil {
   - dataLancamento: Date
   - descricao: String
   - status: StatusLancamento
-
+  - criadoEm: DateTime
 }
 
 enum StatusLancamento {
@@ -113,43 +137,53 @@ enum TipoMovimento {
 class ContaContabil {
   - codigo: String
   - nome: String
-  - tipo: String
+  - tipo: TipoConta
 }
 
-' Relações contábeis corretas
-AnaliseDocumento "1" -- "1..*" LancamentoContabil : gera >
+enum TipoConta {
+  ATIVO
+  PASSIVO
+  RECEITA
+  DESPESA
+  PATRIMONIO
+}
+
+AnaliseDocumento "1" --> "1..*" LancamentoContabil : gera >
 LancamentoContabil "1" *-- "2..*" ItemLancamento
 ItemLancamento "*" --> "1" ContaContabil
 
-' Rastreabilidade (IMPORTANTE)
+Empresa "1" -- "0..*" LancamentoContabil
 LancamentoContabil "*" --> "1" Documento
 
-' Revisão do contador
 Contador "1" -- "0..*" LancamentoContabil : revisa >
 
 ' ========================
 ' FEEDBACK / APRENDIZADO
 ' ========================
-class CorrecaoIA {
+class RevisaoContabil {
   - id: UUID
   - observacao: String
-  - dataCorrecao: DateTime
+  - dataRevisao: DateTime
 }
 
-LancamentoContabil "1" -- "0..1" CorrecaoIA
-CorrecaoIA "*" --> "1" LancamentoContabil : altera >
-CorrecaoIA "*" --> "1" AnaliseDocumento : melhora >
-
-Contador "1" -- "0..*" CorrecaoIA : registra >
+LancamentoContabil "1" -- "0..*" RevisaoContabil
+RevisaoContabil "*" --> "1" AnaliseDocumento : referencia >
+Contador "1" -- "0..*" RevisaoContabil : registra >
 
 ' ========================
 ' RELATÓRIOS
 ' ========================
 class Relatorio {
   - id: UUID
-  - tipo: String
+  - tipo: TipoRelatorio
   - dataGeracao: DateTime
-  
+}
+
+enum TipoRelatorio {
+  BALANCETE
+  DRE
+  RAZAO
+  DIARIO
 }
 
 Relatorio "1" --> "0..*" LancamentoContabil
