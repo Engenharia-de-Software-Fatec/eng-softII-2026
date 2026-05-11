@@ -1,11 +1,14 @@
 @startuml
 left to right direction
 
+actor Administrador
 actor Cliente
 actor Contador
 actor IA
 
 rectangle "Sistema Contabilidade Ágil" {
+
+  Administrador --> (Gerenciar sistema)
 
   Cliente --> (Enviar arquivos)
 
@@ -21,6 +24,10 @@ rectangle "Sistema Contabilidade Ágil" {
   (Revisar lançamentos) .> (Corrigir lançamentos) : <<extend>>
 
   (Realizar lançamentos contábeis) .> (Revisar lançamentos) : <<include>>
+
+  (Gerenciar sistema) .> (Gerenciar usuários) : <<include>>
+  (Gerenciar sistema) .> (Gerenciar documentos) : <<include>>
+
 }
 
 @enduml
