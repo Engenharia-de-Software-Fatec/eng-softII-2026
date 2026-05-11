@@ -94,7 +94,7 @@ Desenvolver uma aplicação inteligente que aumente a produtividade de escritór
 
 * 💻 [Protótipo](https://laurel-floral-34934178.figma.site/)
 
-* 🎥 [Vídeo](https://drive.google.com/file/d/1hkVeMuVqgjSLNzRJQn_l_Lho_XPKSoH0/view?usp=sharing)
+* 🎥 [Vídeo](https://youtu.be/dZvp0X_kmJM)
 
 ---
 
