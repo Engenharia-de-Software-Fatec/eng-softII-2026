@@ -5,18 +5,17 @@ actor Administrador
 actor Cliente
 actor Contador
 
-
 rectangle "Sistema Contabilidade Ágil" {
 
   Administrador --> (Gerenciar sistema)
 
-  Cliente --> (Enviar docmentos)
+  Cliente --> (Enviar documentos)
 
   Contador --> (Enviar documentos)
+  Contador --> (Realizar lançamentos contábeis)
   Contador --> (Revisar lançamentos)
-  Contador -- (Gerenciar clientes)
-  Contador -- (Gerenciar documentos)
-
+  Contador --> (Gerenciar clientes)
+  Contador --> (Gerenciar documentos)
 
   (Revisar lançamentos) .> (Aprovar lançamentos) : <<extend>>
   (Revisar lançamentos) .> (Corrigir lançamentos) : <<extend>>
