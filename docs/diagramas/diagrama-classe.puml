@@ -82,6 +82,7 @@ class Documento {
   - id: UUID
   - titulo: String
   - categoria: CategoriaDocumento
+  - tipoProcessamento: TipoProcessamento
   - status: StatusDocumento
   - dataUpload: DateTime
   - criadoEm: DateTime
@@ -92,12 +93,19 @@ enum CategoriaDocumento {
   COMPROVANTE
   EXTRATO_BANCARIO
   XML_NFE
+  JSON_FISCAL
+}
+
+enum TipoProcessamento {
+  IA
+  DIRETO
 }
 
 enum StatusDocumento {
   PENDENTE
   PROCESSANDO
   ANALISADO
+  IMPORTADO
   REJEITADO
 }
 
@@ -122,7 +130,7 @@ enum StatusAnalise {
   BAIXA_CONFIANCA
 }
 
-Documento "1" --> "0..*" AnaliseDocumento : gera >
+Documento "1" --> "0..1" AnaliseDocumento : gera se IA >
 
 ' =====================================================
 ' PLANO DE CONTAS
