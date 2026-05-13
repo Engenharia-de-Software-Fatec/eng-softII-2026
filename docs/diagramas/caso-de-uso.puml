@@ -1,4 +1,5 @@
 @startuml
+top to bottom direction
 
 actor Administrador
 actor Cliente
@@ -6,23 +7,33 @@ actor Contador
 
 rectangle "Sistema Contabilidade Ágil" {
 
-  Administrador --> (Gerenciar sistema)
+  usecase "Gerenciar sistema" as GS
+  usecase "Gerenciar usuários" as GU
 
-  Cliente --> (Enviar documentos)
+  usecase "Enviar documentos" as ED
 
-  Contador --> (Enviar documentos)
-  Contador --> (Realizar lançamentos contábeis)
-  Contador --> (Revisar lançamentos)
-  Contador --> (Gerenciar clientes)
-  Contador --> (Gerenciar documentos)
+  usecase "Gerenciar clientes" as GC
 
-  (Revisar lançamentos) .> (Aprovar lançamentos) : <<extend>>
-  (Revisar lançamentos) .> (Corrigir lançamentos) : <<extend>>
+  usecase "Revisar lançamentos" as RL
 
-  (Realizar lançamentos contábeis) .> (Revisar lançamentos) : <<include>>
+  usecase "Aprovar lançamentos" as AL
+  usecase "Corrigir lançamentos" as CL
 
-  (Gerenciar sistema) .> (Gerenciar usuários) : <<include>>
-  (Gerenciar sistema) .> (Gerenciar documentos) : <<include>>
+  usecase "Gerenciar documentos" as GD
+
+  Administrador --> GS
+
+  Cliente --> ED
+
+  Contador --> ED
+  Contador --> GC
+  Contador --> RL
+  Contador --> GD
+
+  GS .> GU : <<include>>
+
+  RL .> AL : <<extend>>
+  RL .> CL : <<extend>>
 
 }
 
