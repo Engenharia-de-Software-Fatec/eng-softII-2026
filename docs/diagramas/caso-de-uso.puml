@@ -4,21 +4,19 @@ left to right direction
 actor Administrador
 actor Cliente
 actor Contador
-actor IA
+
 
 rectangle "Sistema Contabilidade Ágil" {
 
   Administrador --> (Gerenciar sistema)
 
-  Cliente --> (Enviar arquivos)
+  Cliente --> (Enviar docmentos)
 
-  Contador --> (Enviar arquivos)
-  Contador --> (Revisar lançamentos contábeis)
+  Contador --> (Enviar documentos)
   Contador --> (Revisar lançamentos)
   Contador -- (Gerenciar clientes)
   Contador -- (Gerenciar documentos)
 
-  IA --> (Realizar lançamentos contábeis)
 
   (Revisar lançamentos) .> (Aprovar lançamentos) : <<extend>>
   (Revisar lançamentos) .> (Corrigir lançamentos) : <<extend>>
