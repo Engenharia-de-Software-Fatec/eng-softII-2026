@@ -33,7 +33,6 @@ RF04, RF10, RF11, RF13, RF15, RF16
 
 ### Questões em aberto
 - Quais tipos de documentos terão prioridade no processamento?  
-- O nível de confiança mínimo da IA será configurável?  
 
 ---
 
@@ -47,11 +46,10 @@ RF04, RF10, RF11, RF13, RF15, RF16
 6. O contador confirma o envio  
 7. [EV] O sistema envia os documentos para processamento  
 8. [EV] O Sistema de IA extrai os dados dos documentos  
-9. [EV] O sistema calcula o nível de confiança  
-10. O sistema exibe os dados extraídos  
-11. O contador revisa as informações  
-12. O contador aprova o lançamento  
-13. O sistema registra o lançamento contábil  
+9. O sistema exibe os dados extraídos  
+10. O contador revisa as informações  
+11. O contador aprova o lançamento  
+12. O sistema registra o lançamento contábil  
 
 ---
 
@@ -75,11 +73,6 @@ RF04, RF10, RF11, RF13, RF15, RF16
 - 8a.2 O sistema permite nova tentativa  
 - 8a.3 Retorna ao passo 7  
 
-### 9a. Baixa confiança na extração
-- 9a.1 O sistema alerta o contador  
-- 9a.2 O contador revisa manualmente os dados  
-- 9a.3 Retorna ao passo 11  
-
-### 12a. Contador rejeita o lançamento
-- 12a.1 O sistema marca o lançamento como rejeitado  
-- 12a.2 O sistema armazena o documento sem contabilização  
+### 11a. Contador rejeita o lançamento
+- 11a.1 O sistema marca o lançamento como rejeitado  
+- 11a.2 O sistema armazena o documento sem contabilização  
