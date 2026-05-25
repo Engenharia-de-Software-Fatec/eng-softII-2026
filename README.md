@@ -41,6 +41,16 @@ Desenvolver uma aplicação inteligente que aumente a produtividade de escritór
 
 ---
 
+## ⚠️ Principais Dores
+
+* Processos manuais demorados
+* Alto risco de erro humano
+* Grande volume de documentos
+* Baixa produtividade em escritórios contábeis
+* Dificuldade de padronização dos lançamentos
+
+---
+
 
 ## 🚀 Funcionalidades
 
@@ -51,15 +61,6 @@ Desenvolver uma aplicação inteligente que aumente a produtividade de escritór
 * Histórico de lançamentos
 ---
 
-## ⚠️ Principais Dores
-
-* Processos manuais demorados
-* Alto risco de erro humano
-* Grande volume de documentos
-* Baixa produtividade em escritórios contábeis
-* Dificuldade de padronização dos lançamentos
-
----
 
 ## 🛠️ Tecnologias
 
