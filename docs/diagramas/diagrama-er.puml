@@ -3,6 +3,10 @@ title Diagrama E/R - Contabilidade Ágil
 
 hide circle
 skinparam linetype ortho
+skinparam nodesep 70
+skinparam ranksep 80
+skinparam shadowing false
+left to right direction
 
 entity "ESCRITORIO" as escritorio {
   * id : UUID <<PK>>
