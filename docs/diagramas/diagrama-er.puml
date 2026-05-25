@@ -1,0 +1,138 @@
+@startuml
+title Diagrama E/R - Contabilidade Ágil
+
+hide circle
+skinparam linetype ortho
+
+entity "ESCRITORIO" as escritorio {
+  * id : UUID <<PK>>
+  --
+  razao_social : String
+  cnpj : String
+  criado_em : DateTime
+}
+
+entity "USUARIO" as usuario {
+  * id : UUID <<PK>>
+  --
+  escritorio_id : UUID <<FK>>
+  nome : String
+  email : String
+  senha_hash : String
+  perfil : String
+  crc : String
+  ativo : Boolean
+  criado_em : DateTime
+}
+
+entity "CLIENTE" as cliente {
+  * id : UUID <<PK>>
+  --
+  escritorio_id : UUID <<FK>>
+  razao_social : String
+  nome_fantasia : String
+  cnpj : String
+  email : String
+  status : String
+  criado_em : DateTime
+}
+
+entity "DOCUMENTO" as documento {
+  * id : UUID <<PK>>
+  --
+  cliente_id : UUID <<FK>>
+  usuario_id : UUID <<FK>>
+  nome_arquivo : String
+  tipo : String
+  formato : String
+  status : String
+  tipo_processamento : String
+  caminho_arquivo : String
+  data_upload : DateTime
+}
+
+entity "ANALISE_DOCUMENTO" as analise {
+  * id : UUID <<PK>>
+  --
+  documento_id : UUID <<FK>>
+  confianca : Decimal
+  status : String
+  dados_extraidos : Text
+  data_analise : DateTime
+}
+
+entity "LANCAMENTO_CONTABIL" as lancamento {
+  * id : UUID <<PK>>
+  --
+  cliente_id : UUID <<FK>>
+  documento_id : UUID <<FK>>
+  analise_id : UUID <<FK>>
+  descricao : String
+  valor_total : Decimal
+  data_lancamento : Date
+  status : String
+  criado_em : DateTime
+  atualizado_em : DateTime
+}
+
+entity "ITEM_LANCAMENTO" as item {
+  * id : UUID <<PK>>
+  --
+  lancamento_id : UUID <<FK>>
+  conta_contabil_id : UUID <<FK>>
+  tipo_movimento : String
+  valor : Decimal
+}
+
+entity "CONTA_CONTABIL" as conta {
+  * id : UUID <<PK>>
+  --
+  codigo : String
+  nome : String
+  tipo : String
+}
+
+entity "REVISAO_CONTABIL" as revisao {
+  * id : UUID <<PK>>
+  --
+  lancamento_id : UUID <<FK>>
+  usuario_id : UUID <<FK>>
+  acao : String
+  observacao : Text
+  data_revisao : DateTime
+}
+
+entity "HISTORICO_ALTERACAO" as historico {
+  * id : UUID <<PK>>
+  --
+  usuario_id : UUID <<FK>>
+  documento_id : UUID <<FK>>
+  lancamento_id : UUID <<FK>>
+  tipo_alteracao : String
+  descricao : Text
+  criado_em : DateTime
+}
+
+escritorio ||--o{ usuario : possui
+escritorio ||--o{ cliente : atende
+
+usuario ||--o{ documento : envia
+cliente ||--o{ documento : possui
+
+documento ||--o| analise : gera
+analise ||--o{ lancamento : sugere
+
+documento ||--o{ lancamento : origina
+cliente ||--o{ lancamento : possui
+
+lancamento ||--|{ item : contem
+conta ||--o{ item : classifica
+
+usuario ||--o{ revisao : realiza
+lancamento ||--o{ revisao : recebe
+
+usuario ||--o{ historico : registra
+documento ||--o{ historico : possui
+lancamento ||--o{ historico : possui
+
+@enduml
