@@ -4,7 +4,7 @@
 
 | ID   | Descrição                                                             |
 | ---- | --------------------------------------------------------------------- |
-| RF01 | Permitir ao contador autenticar-se com CRM ou e-mail e senha          |
+| RF01 | Permitir ao contador autenticar-se com CRC ou e-mail e senha          |
 | RF02 | Permitir recuperação de senha                                         |
 | RF03 | Permitir acesso ao painel do contador após login                      |
 | RF04 | Permitir selecionar e enviar documentos                               |
