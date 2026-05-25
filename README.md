@@ -111,6 +111,12 @@ Código fonte: [docs/diagramas/caso-de-uso.puml](https://github.com/Engenharia-d
 ![Diagrama de Classes](https://github.com/Engenharia-de-Software-Fatec/eng-softII-2026/blob/main/docs/diagramas/diagrama-classe.png)<br>
 Código fonte: [docs/diagramas/diagrama-classe.puml](https://github.com/Engenharia-de-Software-Fatec/eng-softII-2026/blob/main/docs/diagramas/diagrama-classe.puml)
 
+
+* 🎲 Diagrama E/R:
+![Diagrama E/R]()
+Código fonte:
+[docs/diagramas/diagrama-er.puml]()
+
 ---
 
 ## 🧩 Metodologia
