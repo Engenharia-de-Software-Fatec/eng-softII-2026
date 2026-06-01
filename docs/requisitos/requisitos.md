@@ -36,6 +36,7 @@
 | RF29 | Permitir navegação entre telas do sistema |
 | RF30 | Exibir notificações ao usuário |
 | RF31 | Registrar histórico de alterações realizadas |
+| RF32 | Permitir que clientes enviem documentos para processamento contábil |
 
 ---
 
