@@ -97,6 +97,8 @@ Desenvolver uma aplicação inteligente que aumente a produtividade de escritór
 
 * 👀 [Documento de Visão](https://github.com/Engenharia-de-Software-Fatec/eng-softII-2026/blob/main/docs/produto/documento-vis%C3%A3o.md)
 
+* 📜 [Proposta](https://github.com/Engenharia-de-Software-Fatec/eng-softII-2026/blob/main/docs/produto/ES2N%20proposta%20integrador%20contabilidade%20%C3%A1gil.pdf)
+
 * 💻 [Protótipo](https://laurel-floral-34934178.figma.site/)
 
 * 🎥 [Vídeo](https://youtu.be/dZvp0X_kmJM)
