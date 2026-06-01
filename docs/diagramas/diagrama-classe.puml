@@ -8,33 +8,28 @@ skinparam style strictuml
 skinparam linetype ortho
 
 ' =====================================================
-' USUÁRIOS
+' USUÁRIOS DO SISTEMA
 ' =====================================================
 
-abstract class Usuario {
+class Usuario {
   - id: UUID
   - nome: String
   - email: String
   - senhaHash: String
+  - perfil: PerfilUsuario
   - ativo: Boolean
   - criadoEm: DateTime
   - atualizadoEm: DateTime
 }
 
-class Administrador
-
-class Contador {
-  - crc: String
+enum PerfilUsuario {
+  ADMINISTRADOR
+  CONTADOR
+  CLIENTE
 }
 
-class Cliente
-
-Usuario <|-- Administrador
-Usuario <|-- Contador
-Usuario <|-- Cliente
-
 ' =====================================================
-' ESCRITÓRIO
+' ESCRITÓRIO CONTÁBIL
 ' =====================================================
 
 class Escritorio {
@@ -44,8 +39,31 @@ class Escritorio {
   - criadoEm: DateTime
 }
 
-Escritorio "1" -- "1..*" Contador
-Escritorio "1" -- "1..*" Cliente
+Escritorio "1" -- "0..*" Usuario : possui usuários >
+
+' =====================================================
+' CLIENTES / EMPRESAS ATENDIDAS
+' =====================================================
+
+class Cliente {
+  - id: UUID
+  - razaoSocial: String
+  - nomeFantasia: String
+  - cnpj: String
+  - status: StatusCliente
+  - criadoEm: DateTime
+  - atualizadoEm: DateTime
+}
+
+enum StatusCliente {
+  PENDENTE
+  EM_DIA
+  INATIVO
+}
+
+Escritorio "1" -- "0..*" Cliente : atende >
+
+Usuario "0..*" -- "0..*" Cliente : possui acesso >
 
 ' =====================================================
 ' RELACIONAMENTO CONTADOR x CLIENTE
@@ -57,22 +75,8 @@ class AtendimentoContabil {
   - ativo: Boolean
 }
 
-Contador "1" -- "0..*" AtendimentoContabil
-Cliente "1" -- "0..*" AtendimentoContabil
-
-' =====================================================
-' EMPRESAS
-' =====================================================
-
-class Empresa {
-  - id: UUID
-  - razaoSocial: String
-  - nomeFantasia: String
-  - cnpj: String
-  - criadoEm: DateTime
-}
-
-Cliente "1" -- "1..*" Empresa
+Usuario "1" -- "0..*" AtendimentoContabil : contador responsável >
+Cliente "1" -- "0..*" AtendimentoContabil : é atendido >
 
 ' =====================================================
 ' DOCUMENTOS
@@ -109,8 +113,7 @@ enum StatusDocumento {
   REJEITADO
 }
 
-Empresa "1" *-- "0..*" Documento
-
+Cliente "1" *-- "0..*" Documento : possui >
 Usuario "1" --> "0..*" Documento : realiza upload >
 
 ' =====================================================
@@ -183,16 +186,13 @@ enum TipoMovimento {
 }
 
 AnaliseDocumento "1" --> "0..*" LancamentoContabil : sugere >
-
-Empresa "1" --> "0..*" LancamentoContabil
-
-Documento "1" --> "0..*" LancamentoContabil
+Cliente "1" --> "0..*" LancamentoContabil : possui >
+Documento "1" --> "0..*" LancamentoContabil : origina >
 
 LancamentoContabil "1" *-- "2..*" ItemLancamento
-
 ItemLancamento "*" --> "1" ContaContabil
 
-Contador "1" --> "0..*" LancamentoContabil : cria/edita/exclui >
+Usuario "1" --> "0..*" LancamentoContabil : cria/edita/exclui >
 
 ' =====================================================
 ' REVISÃO CONTÁBIL
@@ -205,8 +205,7 @@ class RevisaoContabil {
 }
 
 LancamentoContabil "1" --> "0..*" RevisaoContabil
-
-Contador "1" --> "0..*" RevisaoContabil : registra >
+Usuario "1" --> "0..*" RevisaoContabil : registra >
 
 ' =====================================================
 ' RELATÓRIOS
@@ -227,8 +226,6 @@ enum TipoRelatorio {
   DIARIO
 }
 
-Contador "1" --> "0..*" Relatorio : gera >
-
-Administrador "1" --> "0..*" Relatorio : emite >
+Usuario "1" --> "0..*" Relatorio : gera/emite >
 
 @enduml
