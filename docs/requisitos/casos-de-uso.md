@@ -81,13 +81,17 @@ RF04, RF10, RF11, RF13, RF15, RF16
 - 5a.2 O contador remove ou substitui o arquivo  
 - 5a.3 Retorna ao passo 4  
 
+### 7a. Arquivo XML ou JSON
+- 7a.1 O sistema identifica que o arquivo é XML ou JSON
+- 7a.2 O sistema importa os dados diretamente
+- 7a.3 O processamento por OCR e IA é ignorado
+- 7a.4 O sistema gera os dados para revisão do contador
+- 7a.5 Continua no passo 9
+
 ### 8a. Falha no processamento da IA
 - 8a.1 O sistema informa erro no processamento  
 - 8a.2 O sistema permite nova tentativa  
 - 8a.3 Retorna ao passo 7
-
-### 8b. Se o arquivo for XML ou JSON
-- 8b.1 O sistema importa diretamente sem OCR/IA
 
 ### 11a. Contador rejeita o lançamento
 - 11a.1 O sistema marca o lançamento como rejeitado  
