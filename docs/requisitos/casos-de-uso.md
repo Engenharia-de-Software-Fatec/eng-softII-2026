@@ -1,6 +1,6 @@
 ## Caso de uso: Enviar e Processar Documentos
 
-**Atores:** Contador, Sistema de IA  
+**Atores:** Cliente, Contador, Sistema de IA  
 **Interessados:** Escritório contábil, Clientes, Setor financeiro  
 
 ---
@@ -38,10 +38,10 @@ RF04, RF10, RF11, RF13, RF15, RF16
 
 ## Fluxo principal
 
-1. O contador acessa a funcionalidade de envio de documentos  
-2. O contador seleciona o cliente  
-3. O contador seleciona o tipo de documento  
-4. O contador adiciona os arquivos (upload ou arrastar)  
+1. O cliente ou contador acessa a funcionalidade de envio de documentos
+2. O cliente ou contador seleciona o cliente relacionado
+3. O cliente ou contador seleciona o tipo de documento
+4. O cliente ou contador adiciona os arquivos
 5. [EV] O sistema valida os arquivos (formato e tamanho)  
 6. O contador confirma o envio  
 7. [EV] O sistema envia os documentos para processamento  
@@ -50,6 +50,19 @@ RF04, RF10, RF11, RF13, RF15, RF16
 10. O contador revisa as informações  
 11. O contador aprova o lançamento  
 12. O sistema registra o lançamento contábil  
+
+---
+
+## Fluxos Alternativos
+
+### FA01. Envio realizado pelo cliente
+
+1. O cliente acessa sua área de documentos
+2. O cliente seleciona os arquivos
+3. O cliente envia os documentos
+4. O sistema associa os documentos ao cliente
+5. O sistema disponibiliza os documentos para revisão do contador
+6. Continua no passo 7 do fluxo principal
 
 ---
 
@@ -71,7 +84,10 @@ RF04, RF10, RF11, RF13, RF15, RF16
 ### 8a. Falha no processamento da IA
 - 8a.1 O sistema informa erro no processamento  
 - 8a.2 O sistema permite nova tentativa  
-- 8a.3 Retorna ao passo 7  
+- 8a.3 Retorna ao passo 7
+
+### 8b. Se o arquivo for XML ou JSON
+- 8b.1 O sistema importa diretamente sem OCR/IA
 
 ### 11a. Contador rejeita o lançamento
 - 11a.1 O sistema marca o lançamento como rejeitado  
