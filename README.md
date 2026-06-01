@@ -87,6 +87,8 @@ Desenvolver uma aplicação inteligente que aumente a produtividade de escritór
 
 * 📌 [Requisitos Não Funcionais](https://github.com/Engenharia-de-Software-Fatec/eng-softII-2026/blob/main/docs/requisitos/requisitos.md#%EF%B8%8F-requisitos-n%C3%A3o-funcionais)
 
+* 📋 [Product Backlog](https://github.com/orgs/Engenharia-de-Software-Fatec/projects/2)
+
 * 📑 Casos de Uso: [Alto nível](https://github.com/Engenharia-de-Software-Fatec/eng-softII-2026/blob/main/docs/diagramas/caso-de-uso.png), [Baixo nível](https://github.com/Engenharia-de-Software-Fatec/eng-softII-2026/blob/main/docs/requisitos/casos-de-uso.md)
 
 * 🏷 [Diagrama de Classes](https://github.com/Engenharia-de-Software-Fatec/eng-softII-2026/blob/main/docs/diagramas/diagrama-classe.png)
