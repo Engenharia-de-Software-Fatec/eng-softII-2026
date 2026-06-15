@@ -120,7 +120,7 @@ Código fonte: [docs/diagramas/diagrama-classe.puml](https://github.com/Engenhar
 
 
 * 🎲 Diagrama E/R:
-![Diagrama E/R](https://github.com/Engenharia-de-Software-Fatec/eng-softII-2026/blob/main/docs%2Fdiagramas%2Fdiagrama-er.png)
+![Diagrama E/R](https://github.com/Engenharia-de-Software-Fatec/eng-softII-2026/blob/main/docs%2Fdiagramas%2Fdiagrama-er-atualizado.jpeg)
 Código fonte:
 [docs/diagramas/diagrama-er.puml](https://github.com/Engenharia-de-Software-Fatec/eng-softII-2026/blob/main/docs%2Fdiagramas%2Fdiagrama-er.puml)
 
