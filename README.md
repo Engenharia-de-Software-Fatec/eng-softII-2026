@@ -101,7 +101,7 @@ Desenvolver uma aplicação inteligente que aumente a produtividade de escritór
 
 * 📜 [Proposta](https://github.com/Engenharia-de-Software-Fatec/eng-softII-2026/blob/main/docs/produto/documento-proposta.md)
 
-* 💻 [Protótipo](https://laurel-floral-34934178.figma.site/)
+* 💻 [Protótipo](https://contabilidade-agil.netlify.app/)
 
 * 🎥 [Vídeo](https://youtu.be/dZvp0X_kmJM)
 
