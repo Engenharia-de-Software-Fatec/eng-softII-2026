@@ -105,6 +105,8 @@ Desenvolver uma aplicação inteligente que aumente a produtividade de escritór
 
 * 🎥 [Vídeo](https://www.youtube.com/watch?v=UkTEEbcaf1g)
 
+* 📑 [Ata de validação](https://github.com/Engenharia-de-Software-Fatec/eng-softII-2026/blob/main/docs/produto/Ata%20de%20Verifica%C3%A7%C3%A3o%20e%20Valida%C3%A7%C3%A3o%20do%20Projeto%20Contabilidade%20%C3%81gil.pdf).
+
 ---
 
 ## 📝 Diagramas
