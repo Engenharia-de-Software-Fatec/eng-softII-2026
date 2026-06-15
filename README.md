@@ -103,7 +103,7 @@ Desenvolver uma aplicação inteligente que aumente a produtividade de escritór
 
 * 💻 [Protótipo](https://contabilidade-agil.netlify.app/)
 
-* 🎥 [Vídeo](https://youtu.be/dZvp0X_kmJM)
+* 🎥 [Vídeo](https://www.youtube.com/watch?v=UkTEEbcaf1g)
 
 ---
 
