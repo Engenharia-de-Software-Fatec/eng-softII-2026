@@ -93,6 +93,8 @@ Desenvolver uma aplicação inteligente que aumente a produtividade de escritór
 
 * 🏷 [Diagrama de Classes](https://github.com/Engenharia-de-Software-Fatec/eng-softII-2026/blob/main/docs/diagramas/diagrama-classe.png)
 
+* 🎲 [Diagrama E/R](https://github.com/Engenharia-de-Software-Fatec/eng-softII-2026/blob/main/docs%2Fdiagramas%2Fdiagrama-er-atualizado.jpeg)
+
 * 👤 [Personas](https://github.com/Engenharia-de-Software-Fatec/eng-softII-2026/blob/main/docs/produto/personas.md)
 
 * 📘 [Documento de Concepção](https://github.com/Engenharia-de-Software-Fatec/eng-softII-2026/blob/main/docs/produto/documento-concep%C3%A7%C3%A3o.md)
