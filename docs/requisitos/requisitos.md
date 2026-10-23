@@ -3,40 +3,42 @@
 
 ## 📌 Requisitos Funcionais
 
-| ID   | Descrição |
-| ---- | ---------- |
-| RF01 | Permitir ao contador autenticar-se com CRC ou e-mail e senha |
-| RF02 | Permitir recuperação de senha |
-| RF03 | Permitir logout do sistema |
-| RF04 | Permitir acesso ao dashboard após login |
-| RF05 | Permitir cadastro e gerenciamento de usuários |
-| RF06 | Permitir cadastro e gerenciamento de clientes |
-| RF07 | Permitir selecionar e enviar documentos |
-| RF08 | Permitir escolher o tipo de documento (extrato, comprovante, NF, XML, JSON) |
-| RF09 | Permitir upload de arquivos por arrastar e soltar |
-| RF10 | Validar formatos de arquivo (PDF, JPG, PNG, XML e JSON) |
-| RF11 | Validar tamanho máximo de arquivo (10MB) |
-| RF12 | Exibir lista de arquivos selecionados |
-| RF13 | Permitir envio de arquivos para processamento por IA |
-| RF14 | Ignorar processamento por IA para arquivos XML e JSON |
-| RF15 | Extrair automaticamente dados dos documentos |
-| RF16 | Sugerir lançamento contábil automaticamente |
-| RF17 | Permitir edição dos dados extraídos |
-| RF18 | Permitir aprovação de lançamento |
-| RF19 | Permitir rejeição de lançamento |
-| RF20 | Permitir correção de lançamento |
-| RF21 | Permitir visualização do documento digitalizado |
-| RF22 | Permitir seleção de cliente |
-| RF23 | Permitir busca de cliente por nome ou CNPJ |
-| RF24 | Permitir filtrar clientes (todas, pendentes, em dia) |
-| RF25 | Exibir status do cliente (pendências ou em dia) |
-| RF26 | Exibir sugestões inteligentes baseadas em histórico |
-| RF27 | Permitir visualização do histórico de documentos |
-| RF28 | Permitir geração de relatórios contábeis |
-| RF29 | Permitir navegação entre telas do sistema |
-| RF30 | Exibir notificações ao usuário |
-| RF31 | Registrar histórico de alterações realizadas |
-| RF32 | Permitir que clientes enviem documentos para processamento contábil |
+| ID | Descrição |
+| --- | --- |
+| RF01 | Permitir login com e-mail e senha para administrador, contador e cliente, com controle de acesso rigoroso conforme o perfil |
+| RF02 | Permitir recuperação de senha por e-mail para todos os perfis cadastrados |
+| RF03 | Permitir ao administrador cadastrar, gerenciar e desativar contas de contadores e acessos globais do sistema |
+| RF04 | Permitir ao contador cadastrar e gerenciar os dados cadastrais das empresas clientes (razão social, CNPJ, regime tributário) |
+| RF05 | Permitir ao contador criar, redefinir e gerenciar as credenciais de acesso individuais para cada cliente |
+| RF06 | Permitir ao contador ativar e desativar clientes e seus acessos ao sistema |
+| RF07 | Permitir ao contador cadastrar ou importar o plano de contas individualizado de cada cliente |
+| RF08 | Permitir ao cliente enviar um ou mais documentos (PDF, JPG, PNG ou XML) vinculados exclusivamente à sua empresa |
+| RF09 | Validar formato e tamanho máximo permitido do arquivo, informando erros imediatamente ao usuário |
+| RF10 | Detectar documentos duplicados (por chave de acesso NF-e ou hash de arquivo) e emitir aviso de bloqueio antes do processamento |
+| RF11 | Permitir ao cliente acompanhar em tempo real o status de cada documento enviado |
+| RF12 | Permitir ao contador enviar documentos em nome de qualquer um de seus clientes |
+| RF13 | Extrair dados de notas fiscais em formato XML diretamente do arquivo, sem a necessidade de OCR |
+| RF14 | Realizar leitura via OCR para documentos em PDF ou imagem (extraindo data, valor, emitente, CNPJ e descrição) |
+| RF15 | Gerar automaticamente por IA a sugestão de lançamento contábil (débito, crédito, valor, data e histórico) com base no plano de contas |
+| RF16 | Identificar e classificar automaticamente o tipo do documento (nota fiscal, comprovante, extrato) |
+| RF17 | Exibir o nível de confiança do processamento da IA e sinalizar lançamentos com baixa confiança |
+| RF18 | Tratar falhas de leitura ou documentos ilegíveis, alterando o status para "Com falha" e notificando para reenvio |
+| RF19 | Processar leitura de documentos e geração de sugestões em segundo plano, sem bloquear a navegação do usuário |
+| RF20 | Exibir ao contador a fila de documentos pendentes de revisão, com filtros por cliente, status e período |
+| RF21 | Exibir na tela de revisão a imagem/visualização do documento original ao lado dos dados extraídos e da sugestão de lançamento |
+| RF22 | Permitir ao contador editar as contas contábeis, valores e dados da sugestão antes da aprovação |
+| RF23 | Permitir ao contador aprovar lançamentos contábeis garantindo o princípio de partidas dobradas |
+| RF24 | Permitir ao contador rejeitar documentos informando a justificativa obrigatória e notificando o cliente |
+| RF25 | Registrar histórico de correções manuais do contador para viabilizar melhorias contínuas nas sugestões futuras da IA |
+| RF26 | Permitir ao contador exportar os lançamentos aprovados em formato CSV com filtros por cliente e período |
+| RF27 | Sinalizar e controlar lançamentos já exportados para evitar duplicação no envio ao sistema contábil externo |
+| RF28 | Registrar a trilha de auditoria completa de cada documento (usuário, data/hora, alteração realizada, valores anteriores e novos) |
+| RF29 | Permitir ao contador consultar o histórico detalhado de auditoria de qualquer documento ou lançamento |
+| RF30 | Disponibilizar painel gerencial (dashboard) com contadores de pendências por cliente, tempo médio de revisão e taxa de acerto da IA |
+| RF31 | Enviar notificações automáticas por e-mail para clientes (status de documentos) e contadores (recebimento de novos arquivos) |
+| RF32 | Permitir a importação de extratos bancários para conciliação contábil (Fase Futura) |
+| RF33 | Permitir a importação de dados contábeis via arquivos em formato JSON padronizado (Fase Futura) |
+
 
 ---
 
@@ -61,6 +63,7 @@
 | RNF15 | Registrar logs de auditoria das operações realizadas |
 | RNF16 | Garantir disponibilidade contínua do sistema |
 | RNF17 | Possuir arquitetura escalável para múltiplos usuários simultâneos |
+
 
 ---
 
