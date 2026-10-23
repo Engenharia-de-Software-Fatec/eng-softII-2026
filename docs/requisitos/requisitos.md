@@ -1,6 +1,19 @@
 
 # 📋 Requisitos do Sistema
 
+## 🎯 Requisitos de Negócio
+
+| ID | Descrição / Objetivo |
+| --- | --- |
+| RNEG01 | Reduzir o tempo gasto no processamento e lançamento de cada documento fiscal |
+| RNEG02 | Reduzir erros manuais de digitação e classificação contábil com o uso de IA |
+| RNEG03 | Aumentar a capacidade de processamento de documentos do escritório sem necessidade de expandir a equipe |
+| RNEG04 | Centralizar o envio e a coleta de documentos fiscais dos clientes em uma única plataforma |
+| RNEG05 | Reduzir o custo operacional por documento escriturado em relação ao processo manual |
+| RNEG06 | Garantir rastreabilidade, integridade e auditoria completa de todas as operações contábeis |
+
+---
+
 ## 📌 Requisitos Funcionais
 
 | ID | Descrição |
