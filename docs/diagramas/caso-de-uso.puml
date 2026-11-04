@@ -1,37 +1,82 @@
 @startuml
+left to right direction
 
-actor Administrador
-actor Cliente
-actor Contador
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam linetype ortho
+skinparam nodesep 35
+skinparam ranksep 40
+skinparam defaultFontSize 13
+skinparam actorStyle awesome
 
-rectangle "Sistema Contabilidade Ágil" {
+actor Administrador as ADM
+actor Contador as CONT
+actor Cliente as CLI
 
-  (Gerenciar sistema) as GS
-  (Gerenciar usuários) as GU
+rectangle "CONTABILIDADE ÁGIL" {
 
-  (Enviar documentos) as ED
+    package "Acesso ao Sistema" {
+        usecase "Realizar login" as UC01
+        usecase "Recuperar senha" as UC02
+    }
 
-  (Gerenciar clientes) as GC
+    package "Administração e Cadastros" {
+        usecase "Gerenciar contadores" as UC03
+        usecase "Gerenciar empresas e clientes" as UC04
+        usecase "Gerenciar credenciais dos clientes" as UC05
+        usecase "Ativar e desativar clientes" as UC06
+        usecase "Gerenciar plano de contas" as UC07
+    }
 
-  (Revisar lançamentos) as RL
-  (Aprovar lançamentos) as AL
-  (Corrigir lançamentos) as CL
+    package "Documentos Fiscais" {
+        usecase "Enviar documentos" as UC08
+        usecase "Acompanhar processamento" as UC09
+        usecase "Processar documentos com IA" as UC10
+    }
 
-  (Gerenciar documentos) as GD
+    package "Operações Contábeis" {
+        usecase "Revisar documentos e lançamentos" as UC11
+        usecase "Aprovar lançamentos" as UC12
+        usecase "Rejeitar documentos" as UC13
+        usecase "Exportar lançamentos em CSV" as UC14
+    }
 
-  GS -down-> GU : <<include>>
-
-  RL -down-> AL : <<extend>>
-  RL -down-> CL : <<extend>>
+    package "Gestão e Controle" {
+        usecase "Consultar dashboard" as UC15
+        usecase "Consultar histórico de auditoria" as UC16
+        usecase "Receber notificações por e-mail" as UC17
+    }
 }
 
-Administrador --> GS
+' Administrador
+ADM --> UC01
+ADM --> UC02
+ADM --> UC03
 
-Cliente --> ED
+' Contador
+CONT --> UC01
+CONT --> UC02
+CONT --> UC04
+CONT --> UC05
+CONT --> UC06
+CONT --> UC07
+CONT --> UC08
+CONT --> UC09
+CONT --> UC11
+CONT --> UC12
+CONT --> UC13
+CONT --> UC14
+CONT --> UC15
+CONT --> UC16
+CONT --> UC17
 
-Contador --> ED
-Contador --> GC
-Contador --> RL
-Contador --> GD
+' Cliente
+CLI --> UC01
+CLI --> UC02
+CLI --> UC08
+CLI --> UC09
+CLI --> UC17
 
+' Processamento automático
+UC08 ..> UC10 : <<include>>
 @enduml
