@@ -12,17 +12,39 @@ abstract class Usuario {
   - email: String
   - senha: String
   - ativo: boolean
+  + autenticar(email: String, senha: String): boolean
+  + recuperarSenha(): void
+  + alterarSenha(novaSenha: String): void
 }
 
-class Administrador
-class Contador
-class Cliente
+class Administrador {
+  + cadastrarContador(contador: Contador): void
+  + desativarContador(contador: Contador): void
+  + gerenciarAcessos(): void
+}
+
+class Contador {
+  + cadastrarEmpresa(empresa: Empresa): void
+  + gerenciarEmpresa(empresa: Empresa): void
+  + cadastrarCliente(cliente: Cliente): void
+  + gerenciarAcessoCliente(cliente: Cliente): void
+  + cadastrarPlanoContas(plano: PlanoDeContas): void
+  + enviarDocumento(documento: DocumentoFiscal): void
+}
+
+class Cliente {
+  + enviarDocumento(documento: DocumentoFiscal): void
+  + consultarDocumentos(): void
+  + acompanharProcessamento(documento: DocumentoFiscal): String
+}
 
 class TokenRecuperacaoSenha {
   - id: int
   - token: String
   - dataExpiracao: DateTime
   - utilizado: boolean
+  + validarToken(): boolean
+  + utilizarToken(): void
 }
 
 class Empresa {
@@ -31,12 +53,18 @@ class Empresa {
   - cnpj: String
   - regimeTributario: String
   - ativo: boolean
+  + atualizarDados(): void
+  + ativar(): void
+  + desativar(): void
 }
 
 class PlanoDeContas {
   - id: int
   - nome: String
   - dataCriacao: Date
+  + adicionarConta(conta: ContaContabil): void
+  + removerConta(conta: ContaContabil): void
+  + importarPlano(arquivo: String): void
 }
 
 class ContaContabil {
@@ -44,6 +72,7 @@ class ContaContabil {
   - codigo: String
   - descricao: String
   - tipo: String
+  + atualizarDados(): void
 }
 
 class DocumentoFiscal {
@@ -54,6 +83,11 @@ class DocumentoFiscal {
   - chaveAcesso: String
   - dataEnvio: DateTime
   - status: String
+  - justificativaRejeicao: String
+  + validarArquivo(): boolean
+  + verificarDuplicidade(): boolean
+  + atualizarStatus(status: String): void
+  + rejeitar(justificativa: String): void
 }
 
 class ProcessamentoDocumento {
@@ -63,6 +97,10 @@ class ProcessamentoDocumento {
   - dataInicio: DateTime
   - dataFim: DateTime
   - mensagemFalha: String
+  + identificarTipo(): void
+  + extrairDados(): void
+  + gerarSugestao(): SugestaoLancamento
+  + registrarFalha(mensagem: String): void
 }
 
 Usuario <|-- Administrador
@@ -71,7 +109,7 @@ Usuario <|-- Cliente
 
 Usuario "1" -- "0..*" TokenRecuperacaoSenha : solicita
 
-Administrador "1" -- "0..*" Usuario : gerencia
+Administrador "1" -- "0..*" Contador : gerencia
 
 Contador "0..*" -- "1..*" Empresa : administra
 Empresa "1" -- "0..*" Cliente : possui acessos
