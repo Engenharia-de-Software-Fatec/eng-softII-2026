@@ -1,7 +1,7 @@
 @startuml
 title Diagrama de classes - Parte 1: Gestão e Documentos
 
-left to right direction
+top to bottom direction
 skinparam classAttributeIconSize 0
 skinparam linetype ortho
 
