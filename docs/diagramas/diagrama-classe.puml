@@ -1,231 +1,87 @@
+
 @startuml
-title Diagrama de Classes - Contabilidade Ágil
+title Contabilidade Ágil - Parte 1: Gestão e Documentos
 
 left to right direction
-
 skinparam classAttributeIconSize 0
-skinparam style strictuml
 skinparam linetype ortho
 
-' =====================================================
-' USUÁRIOS DO SISTEMA
-' =====================================================
-
-class Usuario {
-  - id: UUID
+abstract class Usuario {
+  - id: int
   - nome: String
   - email: String
-  - senhaHash: String
-  - perfil: PerfilUsuario
-  - ativo: Boolean
-  - criadoEm: DateTime
-  - atualizadoEm: DateTime
+  - senha: String
+  - ativo: boolean
 }
 
-enum PerfilUsuario {
-  ADMINISTRADOR
-  CONTADOR
-  CLIENTE
+class Administrador
+class Contador
+class Cliente
+
+class TokenRecuperacaoSenha {
+  - id: int
+  - token: String
+  - dataExpiracao: DateTime
+  - utilizado: boolean
 }
 
-' =====================================================
-' ESCRITÓRIO CONTÁBIL
-' =====================================================
-
-class Escritorio {
-  - id: UUID
+class Empresa {
+  - id: int
   - razaoSocial: String
   - cnpj: String
-  - criadoEm: DateTime
+  - regimeTributario: String
+  - ativo: boolean
 }
 
-Escritorio "1" -- "0..*" Usuario : possui usuários >
-
-' =====================================================
-' CLIENTES / EMPRESAS ATENDIDAS
-' =====================================================
-
-class Cliente {
-  - id: UUID
-  - razaoSocial: String
-  - nomeFantasia: String
-  - cnpj: String
-  - status: StatusCliente
-  - criadoEm: DateTime
-  - atualizadoEm: DateTime
+class PlanoDeContas {
+  - id: int
+  - nome: String
+  - dataCriacao: Date
 }
-
-enum StatusCliente {
-  PENDENTE
-  EM_DIA
-  INATIVO
-}
-
-Escritorio "1" -- "0..*" Cliente : atende >
-
-Usuario "0..*" -- "0..*" Cliente : possui acesso >
-
-' =====================================================
-' RELACIONAMENTO CONTADOR x CLIENTE
-' =====================================================
-
-class AtendimentoContabil {
-  - id: UUID
-  - dataInicio: Date
-  - ativo: Boolean
-}
-
-Usuario "1" -- "0..*" AtendimentoContabil : contador responsável >
-Cliente "1" -- "0..*" AtendimentoContabil : é atendido >
-
-' =====================================================
-' DOCUMENTOS
-' =====================================================
-
-class Documento {
-  - id: UUID
-  - titulo: String
-  - categoria: CategoriaDocumento
-  - tipoProcessamento: TipoProcessamento
-  - status: StatusDocumento
-  - dataUpload: DateTime
-  - criadoEm: DateTime
-}
-
-enum CategoriaDocumento {
-  NOTA_FISCAL
-  COMPROVANTE
-  EXTRATO_BANCARIO
-  XML_NFE
-  JSON_FISCAL
-}
-
-enum TipoProcessamento {
-  IA
-  DIRETO
-}
-
-enum StatusDocumento {
-  PENDENTE
-  PROCESSANDO
-  ANALISADO
-  IMPORTADO
-  REJEITADO
-}
-
-Cliente "1" *-- "0..*" Documento : possui >
-Usuario "1" --> "0..*" Documento : realiza upload >
-
-' =====================================================
-' IA / ANÁLISE
-' =====================================================
-
-class AnaliseDocumento {
-  - id: UUID
-  - dataAnalise: DateTime
-  - confianca: Decimal
-  - status: StatusAnalise
-}
-
-enum StatusAnalise {
-  SUCESSO
-  ERRO
-  BAIXA_CONFIANCA
-}
-
-Documento "1" --> "0..1" AnaliseDocumento : gera se IA >
-
-' =====================================================
-' PLANO DE CONTAS
-' =====================================================
 
 class ContaContabil {
+  - id: int
   - codigo: String
-  - nome: String
-  - tipo: TipoConta
-}
-
-enum TipoConta {
-  ATIVO
-  PASSIVO
-  RECEITA
-  DESPESA
-  PATRIMONIO
-}
-
-' =====================================================
-' LANÇAMENTOS CONTÁBEIS
-' =====================================================
-
-class LancamentoContabil {
-  - id: UUID
-  - dataLancamento: Date
   - descricao: String
-  - valorTotal: Decimal
-  - status: StatusLancamento
-  - criadoEm: DateTime
-  - atualizadoEm: DateTime
+  - tipo: String
 }
 
-enum StatusLancamento {
-  PENDENTE_APROVACAO
-  APROVADO
-  CORRIGIDO
-  EXCLUIDO
+class DocumentoFiscal {
+  - id: int
+  - nomeArquivo: String
+  - formato: String
+  - hashArquivo: String
+  - chaveAcesso: String
+  - dataEnvio: DateTime
+  - status: String
 }
 
-class ItemLancamento {
-  - id: UUID
-  - valor: Decimal
-  - tipo: TipoMovimento
+class ProcessamentoDocumento {
+  - id: int
+  - tipoIdentificado: String
+  - dadosExtraidos: String
+  - dataInicio: DateTime
+  - dataFim: DateTime
+  - mensagemFalha: String
 }
 
-enum TipoMovimento {
-  DEBITO
-  CREDITO
-}
+Usuario <|-- Administrador
+Usuario <|-- Contador
+Usuario <|-- Cliente
 
-AnaliseDocumento "1" --> "0..*" LancamentoContabil : sugere >
-Cliente "1" --> "0..*" LancamentoContabil : possui >
-Documento "1" --> "0..*" LancamentoContabil : origina >
+Usuario "1" -- "0..*" TokenRecuperacaoSenha : solicita
 
-LancamentoContabil "1" *-- "2..*" ItemLancamento
-ItemLancamento "*" --> "1" ContaContabil
+Administrador "1" -- "0..*" Usuario : gerencia
 
-Usuario "1" --> "0..*" LancamentoContabil : cria/edita/exclui >
+Contador "0..*" -- "1..*" Empresa : administra
+Empresa "1" -- "0..*" Cliente : possui acessos
 
-' =====================================================
-' REVISÃO CONTÁBIL
-' =====================================================
+Empresa "1" *-- "1" PlanoDeContas
+PlanoDeContas "1" *-- "1..*" ContaContabil
 
-class RevisaoContabil {
-  - id: UUID
-  - observacao: String
-  - dataRevisao: DateTime
-}
+Empresa "1" -- "0..*" DocumentoFiscal : recebe
+Usuario "1" -- "0..*" DocumentoFiscal : envia
 
-LancamentoContabil "1" --> "0..*" RevisaoContabil
-Usuario "1" --> "0..*" RevisaoContabil : registra >
-
-' =====================================================
-' RELATÓRIOS
-' =====================================================
-
-class Relatorio {
-  - id: UUID
-  - tipo: TipoRelatorio
-  - dataGeracao: DateTime
-  - periodoInicio: Date
-  - periodoFim: Date
-}
-
-enum TipoRelatorio {
-  BALANCETE
-  DRE
-  RAZAO
-  DIARIO
-}
-
-Usuario "1" --> "0..*" Relatorio : gera/emite >
+DocumentoFiscal "1" *-- "0..*" ProcessamentoDocumento : possui
 
 @enduml
