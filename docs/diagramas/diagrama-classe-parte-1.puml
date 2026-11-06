@@ -1,117 +1,109 @@
-
 @startuml
-title Diagrama de classes - Parte 1: Gestão e Documentos
-
 top to bottom direction
-skinparam classAttributeIconSize 0
+
 skinparam linetype ortho
+skinparam classAttributeIconSize 0
 
 abstract class Usuario {
-  - id: int
-  - nome: String
-  - email: String
-  - senha: String
-  - ativo: boolean
-  + autenticar(email: String, senha: String): boolean
-  + recuperarSenha(): void
-  + alterarSenha(novaSenha: String): void
+    - id: int
+    - nome: String
+    - email: String
+    - senha: String
+    - ativo: boolean
+    + autenticar(email: String, senha: String): boolean
+    + recuperarSenha(): void
+    + alterarSenha(novaSenha: String): void
 }
 
 class Administrador {
-  + cadastrarContador(contador: Contador): void
-  + desativarContador(contador: Contador): void
-  + gerenciarAcessos(): void
+    + cadastrarContador(): void
+    + desativarContador(): void
+    + gerenciarAcessos(): void
 }
 
 class Contador {
-  + cadastrarEmpresa(empresa: Empresa): void
-  + gerenciarEmpresa(empresa: Empresa): void
-  + cadastrarCliente(cliente: Cliente): void
-  + gerenciarAcessoCliente(cliente: Cliente): void
-  + cadastrarPlanoContas(plano: PlanoDeContas): void
-  + enviarDocumento(documento: DocumentoFiscal): void
+    + cadastrarEmpresa(): void
+    + gerenciarEmpresa(): void
+    + cadastrarCliente(): void
+    + gerenciarAcessoCliente(): void
+    + cadastrarPlanoContas(): void
+    + enviarDocumento(): void
 }
 
 class Cliente {
-  + enviarDocumento(documento: DocumentoFiscal): void
-  + consultarDocumentos(): void
-  + acompanharProcessamento(documento: DocumentoFiscal): String
+    + enviarDocumento(): void
+    + consultarDocumentos(): void
+    + acompanharProcessamento(): void
 }
 
 class TokenRecuperacaoSenha {
-  - id: int
-  - token: String
-  - dataExpiracao: DateTime
-  - utilizado: boolean
-  + validarToken(): boolean
-  + utilizarToken(): void
+    - id: int
+    - token: String
+    - dataExpiracao: DateTime
+    - utilizado: boolean
+    + validarToken(): boolean
+    + utilizarToken(): void
 }
 
 class Empresa {
-  - id: int
-  - razaoSocial: String
-  - cnpj: String
-  - regimeTributario: String
-  - ativo: boolean
-  + atualizarDados(): void
-  + ativar(): void
-  + desativar(): void
+    - id: int
+    - razaoSocial: String
+    - cnpj: String
+    - regimeTributario: String
+    - ativa: boolean
+    + atualizarDados(): void
+    + ativar(): void
+    + desativar(): void
 }
 
 class PlanoDeContas {
-  - id: int
-  - nome: String
-  - dataCriacao: Date
-  + adicionarConta(conta: ContaContabil): void
-  + removerConta(conta: ContaContabil): void
-  + importarPlano(arquivo: String): void
+    - id: int
+    - descricao: String
+    + adicionarConta(): void
+    + removerConta(): void
+    + importarPlano(): void
 }
 
 class ContaContabil {
-  - id: int
-  - codigo: String
-  - descricao: String
-  - tipo: String
-  + atualizarDados(): void
+    - id: int
+    - codigo: String
+    - descricao: String
+    - tipo: String
+    + atualizarDados(): void
 }
 
 class DocumentoFiscal {
-  - id: int
-  - nomeArquivo: String
-  - formato: String
-  - hashArquivo: String
-  - chaveAcesso: String
-  - dataEnvio: DateTime
-  - status: String
-  - justificativaRejeicao: String
-  + validarArquivo(): boolean
-  + verificarDuplicidade(): boolean
-  + atualizarStatus(status: String): void
-  + rejeitar(justificativa: String): void
+    - id: int
+    - nomeArquivo: String
+    - formato: String
+    - dataEnvio: DateTime
+    - status: String
+    - hashArquivo: String
+    + validarArquivo(): boolean
+    + verificarDuplicidade(): boolean
+    + atualizarStatus(): void
+    + rejeitar(justificativa: String): void
 }
 
 class ProcessamentoDocumento {
-  - id: int
-  - tipoIdentificado: String
-  - dadosExtraidos: String
-  - dataInicio: DateTime
-  - dataFim: DateTime
-  - mensagemFalha: String
-  + identificarTipo(): void
-  + extrairDados(): void
-  + gerarSugestao(): SugestaoLancamento
-  + registrarFalha(mensagem: String): void
+    - id: int
+    - tipoDocumento: String
+    - dadosExtraidos: String
+    - confianca: double
+    - status: String
+    + identificarTipo(): void
+    + extrairDados(): void
+    + gerarSugestao(): void
+    + registrarFalha(): void
 }
 
 Usuario <|-- Administrador
 Usuario <|-- Contador
 Usuario <|-- Cliente
 
-Usuario "1" -- "0..*" TokenRecuperacaoSenha : solicita
-
+Usuario "1" -- "0..*" TokenRecuperacaoSenha
 Administrador "1" -- "0..*" Contador : gerencia
-
-Contador "0..*" -- "1..*" Empresa : administra
+Contador "1" -- "0..*" Empresa : administra
 Empresa "1" -- "0..*" Cliente : possui acessos
 
 Empresa "1" *-- "1" PlanoDeContas
@@ -119,7 +111,6 @@ PlanoDeContas "1" *-- "1..*" ContaContabil
 
 Empresa "1" -- "0..*" DocumentoFiscal : recebe
 Usuario "1" -- "0..*" DocumentoFiscal : envia
-
-DocumentoFiscal "1" *-- "0..*" ProcessamentoDocumento : possui
+DocumentoFiscal "1" *-- "0..1" ProcessamentoDocumento
 
 @enduml
