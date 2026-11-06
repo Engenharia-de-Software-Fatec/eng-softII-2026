@@ -1,0 +1,145 @@
+@startuml
+top to bottom direction
+
+skinparam linetype ortho
+skinparam classAttributeIconSize 0
+
+class ProcessamentoDocumento {
+    - id: int
+    - tipoDocumento: String
+    - dadosExtraidos: String
+    - confianca: double
+    - status: String
+}
+
+class DocumentoFiscal {
+    - id: int
+    - nomeArquivo: String
+    - dataEnvio: DateTime
+    - status: String
+    + atualizarStatus(): void
+}
+
+class SugestaoLancamento {
+    - id: int
+    - valor: double
+    - data: Date
+    - historico: String
+    - confianca: double
+    - status: String
+    + calcularConfianca(): double
+    + verificarConfianca(): boolean
+    + editarDados(): void
+    + aprovar(): void
+}
+
+class LancamentoContabil {
+    - id: int
+    - valor: double
+    - data: Date
+    - historico: String
+    - status: String
+    + validarPartidasDobradas(): boolean
+    + confirmarAprovacao(): void
+    + consultarDados(): void
+}
+
+class ContaContabil {
+    - id: int
+    - codigo: String
+    - descricao: String
+    - tipo: String
+    + atualizarDados(): void
+}
+
+class Empresa {
+    - id: int
+    - razaoSocial: String
+    - cnpj: String
+    + consultarLancamentos(): void
+}
+
+class Contador {
+    - id: int
+    - nome: String
+    - email: String
+    + revisarSugestao(): void
+    + editarSugestao(): void
+    + aprovarLancamento(): void
+    + rejeitarDocumento(documento: DocumentoFiscal, justificativa: String): void
+    + consultarPendencias(): void
+    + exportarLancamentos(): void
+}
+
+class HistoricoCorrecao {
+    - id: int
+    - dadosAnteriores: String
+    - dadosCorrigidos: String
+    - dataCorrecao: DateTime
+    + registrarCorrecao(): void
+}
+
+class Exportacao {
+    - id: int
+    - dataExportacao: DateTime
+    - formato: String
+    - periodo: String
+    + filtrarLancamentos(): void
+    + gerarCSV(): void
+    + verificarDuplicidade(): boolean
+}
+
+class Notificacao {
+    - id: int
+    - mensagem: String
+    - dataEnvio: DateTime
+    - tipo: String
+    - lida: boolean
+    + enviar(): void
+    + marcarComoLida(): void
+}
+
+class RegistroAuditoria {
+    - id: int
+    - operacao: String
+    - dataHora: DateTime
+    - valorAnterior: String
+    - valorNovo: String
+    + registrar(): void
+    + consultarHistorico(): void
+}
+
+class DashboardGerencial {
+    + consultarPendenciasPorCliente(): void
+    + consultarTempoMedioRevisao(): void
+    + consultarPrecisaoIA(): void
+}
+
+ProcessamentoDocumento "1" -- "0..1" SugestaoLancamento : gera
+DocumentoFiscal "1" -- "1" ProcessamentoDocumento : possui
+
+SugestaoLancamento "1" -- "0..1" LancamentoContabil : aprovada como
+
+SugestaoLancamento "0..*" --> "1" ContaContabil : conta débito
+SugestaoLancamento "0..*" --> "1" ContaContabil : conta crédito
+
+LancamentoContabil "0..*" --> "1" ContaContabil : conta débito
+LancamentoContabil "0..*" --> "1" ContaContabil : conta crédito
+
+Empresa "1" -- "0..*" LancamentoContabil : possui
+Contador "1" -- "0..*" LancamentoContabil : revisa
+
+LancamentoContabil "0..*" -- "0..1" Exportacao : incluído em
+
+SugestaoLancamento "1" -- "0..*" HistoricoCorrecao : possui
+Contador "1" -- "0..*" HistoricoCorrecao : realiza
+
+DocumentoFiscal "1" -- "0..*" Notificacao : gera
+
+Usuario "1" -- "0..*" RegistroAuditoria : realiza
+DocumentoFiscal "0..1" -- "0..*" RegistroAuditoria : registra
+LancamentoContabil "0..1" -- "0..*" RegistroAuditoria : registra
+
+Contador "1" -- "1" DashboardGerencial : consulta
+
+@enduml
