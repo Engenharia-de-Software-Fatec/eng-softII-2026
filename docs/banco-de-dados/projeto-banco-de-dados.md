@@ -581,16 +581,3 @@ psql -U postgres -d contabilidade_agil -f 04_testes_e_transacoes.sql > saida_04.
 - Em banco gerenciado (Neon): na raiz do repositório da aplicação, `DATABASE_URL="..." npm run db:reset` cria tudo (01, 02 e 03) sem o bloco local do script 01.
 
 ---
-
-## 9. Perguntas prováveis da banca
-
-1. **Por que a regra de partidas dobradas é um trigger deferido e não um CHECK?** CHECK só enxerga a própria linha; a regra envolve várias linhas de `item_lancamento`. E precisa ser deferida porque os itens são inseridos um a um.
-2. **Por que `valor_total` existe se dá para calcular?** Desempenho de listagem; a consistência é garantida por trigger incremental, sem possibilidade de divergência (seção 4.4).
-3. **A mesma NF-e pode aparecer duas vezes?** Na mesma empresa, não. Em empresas diferentes, sim: a nota de venda da XYZ é a nota de compra do Mercado Bom Preço, e as duas são clientes do escritório (documentos 17 e 19 da carga).
-4. **Por que o `CHECK (status <> 'REJEITADO' OR length(trim(motivo)) >= 10)` não basta?** Se `motivo` for NULL, a expressão vira NULL, e CHECK com resultado NULL é **aceito**. Por isso a constraint tem `motivo IS NOT NULL AND …` — esse defeito apareceu nos testes e foi corrigido.
-5. **Como o banco sabe qual usuário da aplicação fez a alteração, se a API conecta com um usuário só?** A API executa `SET LOCAL app.usuario_id = …` no início da transação; o trigger lê com `current_setting('app.usuario_id', true)`.
-6. **O que acontece se dois contadores aprovarem o mesmo lançamento ao mesmo tempo?** `SELECT … FOR UPDATE` na procedure: o segundo espera o primeiro terminar e então encontra o lançamento já APROVADO e recebe erro.
-7. **Por que IDs BIGINT e não UUID como no DER anterior?** Seção 2, item 10.
-8. **O arquivo (PDF/imagem) fica no banco?** Não. O banco guarda caminho, hash e metadados; o binário fica no storage. BYTEA de milhares de PDFs incharia backups e o cache do banco.
-9. **Por que as functions têm `SET search_path` na definição?** Seção 4.5: funciona atrás do pool de conexões do Neon e evita que uma tabela com o mesmo nome em outro schema seja usada.
-10. **Um cliente consegue ver dados de outra empresa?** No modelo, o acesso é definido por `usuario_cliente`; a API filtra por ele. Evolução possível: Row-Level Security (`CREATE POLICY`) usando o mesmo `app.usuario_id`.
