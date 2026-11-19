@@ -1,142 +1,221 @@
 @startuml
-title Diagrama E/R - Contabilidade Ágil
+title Diagrama E/R (lógico) - Contabilidade Ágil - PostgreSQL v2
 
 hide circle
 skinparam linetype ortho
-skinparam nodesep 70
-skinparam ranksep 80
+skinparam nodesep 60
+skinparam ranksep 70
 skinparam shadowing false
-left to right direction
+skinparam defaultFontSize 12
+skinparam class {
+  BackgroundColor<<assoc>> #FFF4E0
+  BackgroundColor<<log>>   #EEEEEE
+}
 
 entity "ESCRITORIO" as escritorio {
-  * id : UUID <<PK>>
+  * id : BIGINT <<PK>>
   --
-  razao_social : String
-  cnpj : String
-  criado_em : DateTime
+  * razao_social : VARCHAR(150)
+  * cnpj : CHAR(14) <<UQ>>
+  * email : VARCHAR(150)
+  telefone : VARCHAR(20)
+  * criado_em : TIMESTAMPTZ
 }
 
 entity "USUARIO" as usuario {
-  * id : UUID <<PK>>
+  * id : BIGINT <<PK>>
   --
-  escritorio_id : UUID <<FK>>
-  nome : String
-  email : String
-  senha_hash : String
-  perfil : String
-  crc : String
-  ativo : Boolean
-  criado_em : DateTime
+  * escritorio_id : BIGINT <<FK>>
+  * nome : VARCHAR(120)
+  * email : VARCHAR(150) <<UQ>>
+  * senha_hash : VARCHAR(255)
+  * perfil : ADMIN | CONTADOR | CLIENTE
+  crc : VARCHAR(20)
+  * ativo : BOOLEAN
+  * criado_em : TIMESTAMPTZ
 }
 
 entity "CLIENTE" as cliente {
-  * id : UUID <<PK>>
+  * id : BIGINT <<PK>>
   --
-  escritorio_id : UUID <<FK>>
-  razao_social : String
-  nome_fantasia : String
-  cnpj : String
-  email : String
-  status : String
-  criado_em : DateTime
+  * escritorio_id : BIGINT <<FK>>
+  * razao_social : VARCHAR(150)
+  nome_fantasia : VARCHAR(150)
+  * cnpj : CHAR(14)  (UQ por escritório)
+  inscricao_estadual / municipal
+  * regime_tributario : VARCHAR(20)
+  cnae : CHAR(7)
+  * email : VARCHAR(150)
+  telefone, responsavel
+  logradouro, cidade, * uf, cep
+  * status : ATIVO | INATIVO
+  * criado_em / atualizado_em
 }
 
-entity "DOCUMENTO" as documento {
-  * id : UUID <<PK>>
+entity "USUARIO_CLIENTE" as uc <<assoc>> {
+  * usuario_id : BIGINT <<PK, FK>>
+  * cliente_id : BIGINT <<PK, FK>>
   --
-  cliente_id : UUID <<FK>>
-  usuario_id : UUID <<FK>>
-  nome_arquivo : String
-  tipo : String
-  formato : String
-  status : String
-  tipo_processamento : String
-  caminho_arquivo : String
-  data_upload : DateTime
-}
-
-entity "ANALISE_DOCUMENTO" as analise {
-  * id : UUID <<PK>>
-  --
-  documento_id : UUID <<FK>>
-  confianca : Decimal
-  status : String
-  dados_extraidos : Text
-  data_analise : DateTime
-}
-
-entity "LANCAMENTO_CONTABIL" as lancamento {
-  * id : UUID <<PK>>
-  --
-  cliente_id : UUID <<FK>>
-  documento_id : UUID <<FK>>
-  analise_id : UUID <<FK>>
-  descricao : String
-  valor_total : Decimal
-  data_lancamento : Date
-  status : String
-  criado_em : DateTime
-  atualizado_em : DateTime
-}
-
-entity "ITEM_LANCAMENTO" as item {
-  * id : UUID <<PK>>
-  --
-  lancamento_id : UUID <<FK>>
-  conta_contabil_id : UUID <<FK>>
-  tipo_movimento : String
-  valor : Decimal
+  * papel : RESPONSAVEL | ACESSO
+  * concedido_em : TIMESTAMPTZ
 }
 
 entity "CONTA_CONTABIL" as conta {
-  * id : UUID <<PK>>
+  * id : BIGINT <<PK>>
   --
-  codigo : String
-  nome : String
-  tipo : String
+  * cliente_id : BIGINT <<FK>>
+  conta_pai_id : BIGINT <<FK>>
+  * codigo : VARCHAR(20)  (UQ por cliente)
+  * nome : VARCHAR(120)
+  * tipo : ATIVO | PASSIVO | PATRIMONIO | RECEITA | DESPESA
+  * natureza : D | C
+  * analitica : BOOLEAN
+  * ativa : BOOLEAN
+}
+
+entity "DOCUMENTO" as documento {
+  * id : BIGINT <<PK>>
+  --
+  * cliente_id : BIGINT <<FK>>
+  * enviado_por : BIGINT <<FK>>
+  * nome_arquivo : VARCHAR(255)
+  * tipo_documento : VARCHAR(15)
+  * formato : PDF | JPG | JPEG | PNG | XML | JSON
+  * tamanho_bytes : INTEGER (<= 10 MB)
+  * hash_sha256 : CHAR(64)  (UQ por cliente)
+  chave_acesso_nfe : CHAR(44)  (UQ por cliente)
+  * caminho_arquivo : VARCHAR(500)
+  / tipo_processamento : IA | DIRETO  (gerada)
+  * status : VARCHAR(12)
+  motivo_rejeicao : TEXT
+  * data_upload / atualizado_em
+}
+
+entity "ANALISE_DOCUMENTO" as analise {
+  * id : BIGINT <<PK>>
+  --
+  * documento_id : BIGINT <<FK, UQ>>
+  * motor : OCR_IA | XML_PARSER | JSON_IMPORT
+  nivel_confianca : NUMERIC(5,2)
+  * dados_extraidos : JSONB
+  * status : CONCLUIDA | FALHA
+  * data_analise : TIMESTAMPTZ
+}
+
+entity "LANCAMENTO" as lancamento {
+  * id : BIGINT <<PK>>
+  --
+  * cliente_id : BIGINT <<FK>>
+  documento_id : BIGINT <<FK>>
+  * criado_por : BIGINT <<FK>>
+  * data_lancamento : DATE
+  * descricao : VARCHAR(255)
+  * valor_total : NUMERIC(15,2)  (trigger)
+  * origem : IA | MANUAL | IMPORTACAO
+  * status : PENDENTE | CORRIGIDO | APROVADO | REPROVADO
+  motivo_reprovacao : TEXT
+  aprovado_por : BIGINT <<FK>>
+  aprovado_em : TIMESTAMPTZ
+  * criado_em / atualizado_em
+}
+
+entity "ITEM_LANCAMENTO" as item {
+  * id : BIGINT <<PK>>
+  --
+  * lancamento_id : BIGINT <<FK>>
+  * conta_contabil_id : BIGINT <<FK>>
+  * tipo_movimento : D | C
+  * valor : NUMERIC(15,2) (> 0)
+  historico : VARCHAR(255)
 }
 
 entity "REVISAO_CONTABIL" as revisao {
-  * id : UUID <<PK>>
+  * id : BIGINT <<PK>>
   --
-  lancamento_id : UUID <<FK>>
-  usuario_id : UUID <<FK>>
-  acao : String
-  observacao : Text
-  data_revisao : DateTime
+  * lancamento_id : BIGINT <<FK>>
+  * usuario_id : BIGINT <<FK>>
+  * acao : APROVACAO | REPROVACAO | CORRECAO
+  observacao : TEXT
+  * data_revisao : TIMESTAMPTZ
 }
 
-entity "HISTORICO_ALTERACAO" as historico {
-  * id : UUID <<PK>>
+entity "RELATORIO" as relatorio {
+  * id : BIGINT <<PK>>
   --
-  usuario_id : UUID <<FK>>
-  documento_id : UUID <<FK>>
-  lancamento_id : UUID <<FK>>
-  tipo_alteracao : String
-  descricao : Text
-  criado_em : DateTime
+  * cliente_id : BIGINT <<FK>>
+  * gerado_por : BIGINT <<FK>>
+  * tipo : BALANCO | BALANCETE | DRE | RAZAO | DIARIO
+  * periodo_inicio / periodo_fim : DATE
+  * data_geracao : TIMESTAMPTZ
+  * enviado_cliente : BOOLEAN
+  enviado_em : TIMESTAMPTZ
+}
+
+entity "EXPORTACAO" as exportacao {
+  * id : BIGINT <<PK>>
+  --
+  * cliente_id : BIGINT <<FK>>
+  * usuario_id : BIGINT <<FK>>
+  * periodo_inicio / periodo_fim : DATE
+  * nome_arquivo : VARCHAR(255)
+  * gerado_em : TIMESTAMPTZ
+}
+
+entity "EXPORTACAO_LANCAMENTO" as el <<assoc>> {
+  * exportacao_id : BIGINT <<PK, FK>>
+  * lancamento_id : BIGINT <<PK, FK, UQ>>
+}
+
+entity "LOG_AUDITORIA" as log <<log>> {
+  * id : BIGINT <<PK>>
+  --
+  * tabela : VARCHAR(40)
+  * registro_id : BIGINT
+  * operacao : I | U | D
+  dados_anteriores : JSONB
+  dados_novos : JSONB
+  usuario_app_id : BIGINT
+  * usuario_banco : VARCHAR(63)
+  * ocorrido_em : TIMESTAMPTZ
 }
 
 escritorio ||--o{ usuario : possui
 escritorio ||--o{ cliente : atende
 
-usuario ||--o{ documento : envia
+usuario ||--o{ uc
+cliente ||--o{ uc
+
+cliente ||--o{ conta : "plano de contas"
+conta |o--o{ conta : "conta pai"
+
 cliente ||--o{ documento : possui
-
+usuario ||--o{ documento : envia
 documento ||--o| analise : gera
-analise ||--o{ lancamento : sugere
 
-documento ||--o{ lancamento : origina
 cliente ||--o{ lancamento : possui
+documento |o--o{ lancamento : origina
+usuario ||--o{ lancamento : "cria / aprova"
 
 lancamento ||--|{ item : contem
 conta ||--o{ item : classifica
 
-usuario ||--o{ revisao : realiza
 lancamento ||--o{ revisao : recebe
+usuario ||--o{ revisao : realiza
 
-usuario ||--o{ historico : registra
-documento ||--o{ historico : possui
-lancamento ||--o{ historico : possui
+cliente ||--o{ relatorio : possui
+usuario ||--o{ relatorio : gera
+
+cliente ||--o{ exportacao : possui
+usuario ||--o{ exportacao : executa
+exportacao ||--|{ el
+lancamento ||--o| el
+
+note bottom of log
+  Sem FKs de propósito: o log precisa
+  sobreviver à exclusão do registro.
+  Preenchido por trigger em cliente, usuario,
+  conta_contabil, documento, lancamento
+  e item_lancamento.
+end note
 
 @enduml
